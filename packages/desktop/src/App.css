@@ -1,0 +1,65 @@
+@import '~antd/dist/antd.css';
+
+body, .ant-layout { 
+  background-color: #ffffff;
+}
+
+.ant-btn:active {
+  color: #a52223;
+  border-color: #a52223;
+}
+
+.ant-btn:focus,
+.ant-btn:hover {
+  color: #d92f30;
+  border-color: #d92f30;
+}
+
+.ant-btn-primary {
+  color: white;
+  background: #bd2829;
+  border-color: #bd2829;
+}
+
+.ant-btn-primary:active {
+  color: white;
+  background: #a52223;
+  border-color: #a52223;
+}
+
+.ant-btn-primary:focus,
+.ant-btn-primary:hover {
+  color: white;
+  background: #d92f30;
+  border-color: #d92f30;
+}
+
+.toolbar {
+  height: 30px;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+.gutter {
+  margin-bottom: 10px;
+}
+
+.name-tag {
+  margin-top: 5px;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: center;
+  outline: none;
+}
+
+.content {
+  padding: 10px 10px;
+  height: 100%;
+}
+
+.board-input .ant-input-group-addon,
+.range-input .ant-input-group-addon {
+  padding: 0;
+  border:0;
+}

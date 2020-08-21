@@ -1,0 +1,84 @@
+@import '~antd/dist/antd.css';
+
+
+@media screen and (max-width: 992px) {
+  .ant-layout .ant-layout-header.site-layout-header {
+    padding: 0 10px;
+  }
+}
+
+.ant-layout, .ant-layout-header {
+  background: #fff;
+}
+
+.ant-btn:active {
+  color: #a52223;
+  border-color: #a52223;
+}
+
+.ant-btn:focus,
+.ant-btn:hover {
+  color: #d92f30;
+  border-color: #d92f30;
+}
+
+.ant-btn-primary {
+  color: white;
+  background: #bd2829;
+  border-color: #bd2829;
+}
+
+.ant-btn-primary:active {
+  color: white;
+  background: #a52223;
+  border-color: #a52223;
+}
+
+.ant-btn-primary:focus,
+.ant-btn-primary:hover {
+  color: white;
+  background: #d92f30;
+  border-color: #d92f30;
+}
+
+.site-layout-header {
+  border: 1px solid rgb(235, 237, 240);
+  display: flex;
+  align-items: center;
+}
+
+.site-layout-header h4{
+  line-height: 64px;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.site-layout-content {
+  background: #fff;
+  padding: 12px 0;
+  min-height: 380px;
+  max-width: 2000px;
+}
+
+.gutter {
+  margin-bottom: 10px;
+}
+
+.logo-wrapper {
+  padding: 15px;
+  height: 64px;
+}
+
+.logo {
+  width: 100%;
+}
+
+.content {
+  padding: 0 10px;
+}
+
+@media screen and (min-width: 992px) {
+  .content {
+    padding: 0 50px;
+  }
+}

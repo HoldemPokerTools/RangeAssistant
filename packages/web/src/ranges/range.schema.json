@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Range",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string",
+      "maxLength": 32,
+      "minLength": 16
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 32,
+      "minLength": 1
+    },
+    "author": {
+      "type": "string",
+      "maxLength": 24,
+      "minLength": 1
+    },
+    "actions": {
+      "$id": "actions",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+          }
+        },
+        "required": [
+          "name",
+          "color"
+        ]
+      },
+      "minItems": 2,
+      "maxItems": 6,
+      "uniqueItems": true
+    },
+    "combos": {
+      "$id": "combos",
+      "patternProperties": {
+        "^([AKQJT2-9]{2})([os?])?$": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false,
+      "maxProperties": 169,
+      "minProperties": 1
+    }
+  },
+  "required": [
+    "_id",
+    "title",
+    "actions",
+    "combos"
+  ]
+}
