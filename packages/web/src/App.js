@@ -23,7 +23,7 @@ const getOSIcon = (os) => {
   }
 }
 
-const os = ["Mac", /*"Windows"*/].find(i => parser.getOS().name.indexOf(i) !== -1);
+const os = ["Mac", /*"Windows"*/].find(i => (parser.getOS().name || "").indexOf(i) !== -1);
 
 const onExport = (data) => {
   const range = {...data, _id: nanoid()}
