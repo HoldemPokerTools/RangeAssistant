@@ -5,6 +5,13 @@
   <br>
 </h1>
 
+Hold'em Tools Range Assistant is free, open source software for creating and viewing
+pre-flop opening ranges for any scenario. You can create complex, balanced ranges for every
+card combo in any pre-flop scenario using the free [web app](https://rangeassistant.holdem.tools),
+then export the range to use with the desktop app whilst you are playing on online poker rooms.
+
+The desktop app is currently available for OS X, however Windows support is coming soon!
+
 <p align="center">
   <a href="#download">Download</a> •
   <a href="#key-features">Key Features</a> •
