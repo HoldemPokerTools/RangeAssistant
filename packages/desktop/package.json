@@ -13,19 +13,19 @@
     ]
   },
   "build": {
-    "appId": "com.electron.electron-with-create-react-app",
+    "appId": "com.holdempokertools.rangeassistant",
+    "productName": "Range Assistant",
     "fileAssociations": [
       {
-        "ext": "ranges",
-        "name": "Ranges File",
-        "perMachine": true,
+        "ext": "range",
+        "name": "Range File",
         "role": "Viewer"
       }
     ]
   },
   "dependencies": {
     "@craco/craco": "^5.6.4",
-    "@holdem-tools/ui-react": "^1.0.0",
+    "@holdem-poker-tools/ui-react": "^1.0.0",
     "antd": "^4.3.5",
     "electron-is-dev": "^1.2.0",
     "pouchdb": "^7.2.2",
@@ -51,7 +51,8 @@
   "homepage": "./",
   "license": "MIT",
   "main": "public/electron.js",
-  "name": "@holdem-tools/range-assistant-desktop",
+  "name": "@holdem-poker-tools/range-assistant-desktop",
+  "repository": "https://github.com/HoldemPokerTools/RangeAssistant",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",

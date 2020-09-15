@@ -11,7 +11,7 @@ import {
   Select,
 } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
-import { HandMatrix } from "@holdem-tools/ui-react";
+import { HandMatrix } from "@holdem-poker-tools/ui-react";
 import basicRange from "../ranges/basic.json";
 const { Title } = Typography;
 const { Option } = Select;

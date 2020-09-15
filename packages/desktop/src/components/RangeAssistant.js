@@ -5,7 +5,7 @@ import {
   InfoCircleOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { HandMatrix } from "@holdem-tools/ui-react";
+import { HandMatrix } from "@holdem-poker-tools/ui-react";
 import {
   getRanges,
   registerListener,

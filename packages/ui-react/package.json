@@ -4,7 +4,7 @@
   "description": "Hold'em Poker Tools JS React UI components lib",
   "license": "MIT",
   "main": "index.js",
-  "name": "@holdem-tools/ui-react",
+  "name": "@holdem-poker-tools/ui-react",
   "peerDependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0"

@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@craco/craco": "^5.6.4",
-    "@holdem-tools/ui-react": "^1.0.0",
+    "@holdem-poker-tools/ui-react": "^1.0.0",
     "ajv": "^6.12.4",
     "antd": "^4.3.5",
     "nanoid": "^3.1.12",
@@ -36,7 +36,7 @@
   "homepage": "./",
   "license": "MIT",
   "main": "src/index.js",
-  "name": "@holdem-tools/range-assistant-web",
+  "name": "@holdem-poker-tools/range-assistant-web",
   "private": true,
   "scripts": {
     "build": "craco build",
