@@ -1,5 +1,5 @@
 {
-  "author": "Hold'em Tools",
+  "author": "Hold'em Poker Tools",
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -23,7 +23,7 @@
     "react-scripts": "3.4.1",
     "ua-parser-js": "^0.7.22"
   },
-  "description": "Hold'em Tools Range Assistant web app",
+  "description": "Hold'em Poker Tools Range Assistant web app",
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

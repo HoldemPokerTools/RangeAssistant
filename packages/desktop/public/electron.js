@@ -9,7 +9,7 @@ const Ajv = require("ajv");
 const width = 330;
 const height = 426;
 
-const PROD_URL = "https://rangeassistant.holdem.tools";
+const PROD_URL = "https://rangeassistant.holdempoker.tools";
 const DEV_URL = "http://localhost:3001";
 const BUILDER_URL = isDev ? DEV_URL : PROD_URL;
 

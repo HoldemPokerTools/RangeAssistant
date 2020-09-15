@@ -1,7 +1,7 @@
 {
-  "author": "Hold'em Tools",
+  "author": "Hold'em Poker Tools",
   "dependencies": {},
-  "description": "Hold'em Tools JS React UI components lib",
+  "description": "Hold'em Poker Tools JS React UI components lib",
   "license": "MIT",
   "main": "index.js",
   "name": "@holdem-tools/ui-react",

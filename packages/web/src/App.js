@@ -123,7 +123,7 @@ function App() {
               }}
               showIcon
               message="First time here?"
-              description="Use this web app to construct a new range then export it to use with the Hold'em Tools Range Assistant desktop app. If on desktop, you can download the Range Assistant desktop app using the button above."
+              description="Use this web app to construct a new range then export it to use with the Hold'em Poker Tools Range Assistant desktop app. If on desktop, you can download the Range Assistant desktop app using the button above."
             />
           )}
           <div className="gutter" />
@@ -176,10 +176,10 @@ function App() {
         </Form>
       </Modal>
       <Footer style={{ textAlign: "center" }}>
-        <Text>Hold'em Tools: Range Assistant ©2020</Text>
+        <Text>Hold'em Poker Tools: Range Assistant ©2020</Text>
         <br />
         <Text>
-          Hold'em tools are free for everyone to use. Show you support on Buy Me
+          Hold'em Poker Tools projects are free for everyone to use. Show you support on Buy Me
           a Coffee!
         </Text>
         <br />

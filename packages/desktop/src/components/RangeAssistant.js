@@ -134,7 +134,7 @@ function RangeAssistant() {
             </span>
           }
         >
-          <Button href={"https://rangeassistant.holdem.tools"} type="primary">
+          <Button href={"https://rangeassistant.holdempoker.tools"} type="primary">
             Create Now
           </Button>
         </Empty>
