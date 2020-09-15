@@ -1,4 +1,4 @@
-import Ajv from 'ajv';
+import Ajv from "ajv";
 import schema from "./range.schema.json";
 
 const ajv = new Ajv();

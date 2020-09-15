@@ -8,8 +8,8 @@ const renderItem = (range) => {
     label: (
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
         {range.title}
@@ -19,27 +19,29 @@ const renderItem = (range) => {
   };
 };
 
-export default ({ranges, value='', ...props}) => {
+export default ({ ranges, value = "", ...props }) => {
   const onSelect = (data) => {
     props.onSelect && props.onSelect(data);
   };
 
   const onChange = (data) => {
-    props.onChange && props.onChange(data)
+    props.onChange && props.onChange(data);
   };
-  
+
   return (
     <AutoComplete
       {...props}
       value={value}
       onChange={onChange}
       onSelect={onSelect}
-      options={ranges.map(r => renderItem(r))}
+      options={ranges.map((r) => renderItem(r))}
       filterOption={(inputValue, option) => {
-        return option.title.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1 
+        return (
+          option.title.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
+        );
       }}
     >
       <Input.Search size="large" placeholder="Search ranges" />
     </AutoComplete>
-  )
+  );
 };

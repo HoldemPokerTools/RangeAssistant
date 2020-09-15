@@ -1,10 +1,28 @@
 {
-  "name": "@holdem-tools/range-assistant-desktop",
-  "description": "Hold'em Tools Range Assistant desktop app",
-  "version": "0.1.0",
   "author": "Hold'em Tools",
-  "license": "MIT",
-  "private": true,
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
+  "build": {
+    "appId": "com.electron.electron-with-create-react-app",
+    "fileAssociations": [
+      {
+        "ext": "ranges",
+        "name": "Ranges File",
+        "perMachine": true,
+        "role": "Viewer"
+      }
+    ]
+  },
   "dependencies": {
     "@craco/craco": "^5.6.4",
     "@holdem-tools/ui-react": "^1.0.0",
@@ -15,47 +33,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
-  "scripts": {
-    "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000 && yarn electron-start\"",
-    "test": "craco test --env=jsdom",
-    "build": "yarn react-build && yarn electron-build",
-    "postinstall": "electron-builder install-app-deps",
-    "eject": "craco eject",
-    "electron-start": "electron .",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "react-start": "FAST_REFRESH=true BROWSER=none craco start",
-    "react-build": "craco build",
-    "electron-build": "electron-builder",
-    "release": "yarn react-build && electron-builder --publish=always"
-  },
-  "main": "public/electron.js",
-  "build": {
-    "appId": "com.electron.electron-with-create-react-app",
-    "fileAssociations": [
-      {
-        "ext": "ranges",
-        "name": "Ranges File",
-        "role": "Viewer",
-        "perMachine": true
-      }
-    ]
-  },
-  "homepage": "./",
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "description": "Hold'em Tools Range Assistant desktop app",
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -66,5 +44,27 @@
     "electron-reload": "^1.5.0",
     "source-map-explorer": "^2.5.0",
     "wait-on": "^5.1.0"
-  }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "homepage": "./",
+  "license": "MIT",
+  "main": "public/electron.js",
+  "name": "@holdem-tools/range-assistant-desktop",
+  "private": true,
+  "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "build": "yarn react-build && yarn electron-build",
+    "eject": "craco eject",
+    "electron-build": "electron-builder",
+    "electron-start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "react-build": "craco build",
+    "react-start": "FAST_REFRESH=true BROWSER=none craco start",
+    "release": "yarn react-build && electron-builder --publish=always",
+    "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000 && yarn electron-start\"",
+    "test": "craco test --env=jsdom"
+  },
+  "version": "0.1.0"
 }

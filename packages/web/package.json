@@ -1,10 +1,17 @@
 {
-  "name": "@holdem-tools/range-assistant-web",
-  "description": "Hold'em Tools Range Assistant web app",
-  "version": "0.1.0",
   "author": "Hold'em Tools",
-  "license": "MIT",
-  "private": true,
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
   "dependencies": {
     "@craco/craco": "^5.6.4",
     "@holdem-tools/ui-react": "^1.0.0",
@@ -16,33 +23,28 @@
     "react-scripts": "3.4.1",
     "ua-parser-js": "^0.7.22"
   },
-  "scripts": {
-    "test": "craco test --env=jsdom",
-    "start": "PORT=3001 FAST_REFRESH=true craco start",
-    "build": "craco build",
-    "eject": "craco eject"
-  },
-  "main": "src/index.js",
-  "homepage": "./",
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "description": "Hold'em Tools Range Assistant web app",
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "gh-pages": "^3.1.0"
-  }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "homepage": "./",
+  "license": "MIT",
+  "main": "src/index.js",
+  "name": "@holdem-tools/range-assistant-web",
+  "private": true,
+  "scripts": {
+    "build": "craco build",
+    "deploy": "gh-pages -d build",
+    "eject": "craco eject",
+    "predeploy": "npm run build",
+    "start": "PORT=3001 FAST_REFRESH=true craco start",
+    "test": "craco test --env=jsdom"
+  },
+  "version": "0.1.0"
 }

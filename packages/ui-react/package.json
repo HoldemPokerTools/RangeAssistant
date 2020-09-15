@@ -1,13 +1,13 @@
 {
-  "name": "@holdem-tools/ui-react",
-  "version": "1.0.0",
-  "main": "index.js",
-  "description": "Hold'em Tools JS React UI components lib",
-  "license": "MIT",
   "author": "Hold'em Tools",
   "dependencies": {},
+  "description": "Hold'em Tools JS React UI components lib",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "@holdem-tools/ui-react",
   "peerDependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
-  }
+  },
+  "version": "1.0.0"
 }

@@ -1,68 +1,60 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Range",
-  "type": "object",
   "properties": {
     "_id": {
-      "type": "string",
       "maxLength": 32,
-      "minLength": 16
-    },
-    "title": {
-      "type": "string",
-      "maxLength": 32,
-      "minLength": 1
-    },
-    "author": {
-      "type": "string",
-      "maxLength": 24,
-      "minLength": 1
+      "minLength": 16,
+      "type": "string"
     },
     "actions": {
       "$id": "actions",
-      "type": "array",
       "items": {
-        "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 16
-          },
           "color": {
-            "type": "string",
-            "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+            "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 16,
+            "minLength": 1,
+            "type": "string"
           }
         },
-        "required": [
-          "name",
-          "color"
-        ]
+        "required": ["name", "color"],
+        "type": "object"
       },
-      "minItems": 2,
       "maxItems": 6,
+      "minItems": 2,
+      "type": "array",
       "uniqueItems": true
+    },
+    "author": {
+      "maxLength": 24,
+      "minLength": 1,
+      "type": "string"
     },
     "combos": {
       "$id": "combos",
+      "additionalProperties": false,
+      "maxProperties": 169,
+      "minProperties": 1,
       "patternProperties": {
         "^([AKQJT2-9]{2})([os?])?$": {
-          "type": "array",
           "items": {
             "type": "number"
           },
-          "minItems": 1
+          "minItems": 1,
+          "type": "array"
         }
-      },
-      "additionalProperties": false,
-      "maxProperties": 169,
-      "minProperties": 1
+      }
+    },
+    "title": {
+      "maxLength": 32,
+      "minLength": 1,
+      "type": "string"
     }
   },
-  "required": [
-    "_id",
-    "title",
-    "actions",
-    "combos"
-  ]
+  "required": ["_id", "title", "actions", "combos"],
+  "title": "Range",
+  "type": "object"
 }

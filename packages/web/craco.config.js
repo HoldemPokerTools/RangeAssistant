@@ -17,6 +17,6 @@ module.exports = {
         match.loader.include = include.concat[absolutePath];
       }
       return webpackConfig;
-    }
+    },
   },
 };
