@@ -27,7 +27,7 @@ jobs:
         run: yarn
 
       - name: Build app
-        run: yarn workspace @holdem-tools/range-assistant-web build
+        run: yarn workspace @holdem-poker-tools/range-assistant-web build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
