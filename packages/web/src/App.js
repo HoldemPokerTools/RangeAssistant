@@ -93,10 +93,14 @@ function App() {
       <Header className="site-layout-header">
         <img
           alt="logo"
-          height="40"
-          src="https://user-images.githubusercontent.com/42975160/92998271-b8630380-f510-11ea-843d-bb5ec3ec4ae0.png"
+          height="60"
+          src="./logo512.png"
         />
-        <div style={{ flexGrow: 1 }}></div>
+        <div className="logo-text">
+          <span>Hold'em Poker Tools</span>
+          <br/>
+          <span style={{ color: "#bd2829"}}>Range Assistant</span>
+        </div>
         <Space>
           {os && (
             <Button>

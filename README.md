@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Texas Hold'em Opening Range Assistant" src="https://user-images.githubusercontent.com/42975160/92998271-b8630380-f510-11ea-843d-bb5ec3ec4ae0.png" width="500px">
+  <img alt="Texas Hold'em Opening Range Assistant" src="./packages/web/public/logo512.png" height="200px">
   <br>
   Texas Hold'em Opening Range Assistant
   <br>

@@ -64,14 +64,23 @@
   margin-bottom: 10px;
 }
 
-.logo-wrapper {
-  padding: 15px;
-  height: 64px;
+.logo-text {
+  flex-grow: 1;
+  line-height: 1;
+  font-size: 22px;
+  font-weight: bold;
+  display: none;
 }
 
-.logo {
-  width: 100%;
+@media screen and (min-width: 992px) {
+  .logo-text {
+    display: block;
+  }
+  .content {
+    padding: 0 50px;
+  }
 }
+
 
 .content {
   padding: 0 10px;
