@@ -7,4 +7,11 @@ contextBridge.exposeInMainWorld("Ranges", {
     const newCallback = (_, data) => handler(data);
     ipcRenderer.on("add-range", newCallback);
   },
+  // importRangeFile: (fp) => {
+  //   console.log(fp)
+  //   ipcRenderer.sendSync('open-file', fp)
+  //   if (fp && fp.endsWith(".range")) {
+  //     ipcRenderer.sendSync('open-file', fp)
+  //   }
+  // }
 });

@@ -1,0 +1,32 @@
+name: Publish Desktop App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm 
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
+      - name: Install Packages
+        run: yarn
+
+      - name: Build app
+        run: yarn workspace @holdem-poker-tools/range-assistant-desktop build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      

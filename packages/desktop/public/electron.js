@@ -5,6 +5,7 @@ const defaultMenu = require(path.join(__dirname, "./menu.js"));
 const fs = require("fs");
 const util = require("util");
 const Ajv = require("ajv");
+const { autoUpdater } = require("electron-updater")
 
 const width = 330;
 const height = 426;
@@ -39,6 +40,16 @@ const commonWindowOptions = {
   },
 };
 
+app.on('will-finish-launching', () => {
+  app.on("open-file", (event, fp) => {
+    handleRange(fp);
+  });
+  // ipcMain.on("open-file", (event, fp) => {
+  //   console.log(fp)
+  //   handleRange(fp);
+  // })
+});
+
 function createAppWindow() {
   let win = new BrowserWindow({
     ...commonWindowOptions,
@@ -57,13 +68,13 @@ function createAppWindow() {
 
   win.on("closed", () => {
     win = null;
-    delete appWindows[idx];
+    appWindows.splice(idx, 1);
   });
   // see https://github.com/electron/electron/issues/20618 and https://github.com/electron/electron/issues/1336
   // win.setAspectRatio(1, {width: 0, height: 74});
 
-  win.webContents.on("new-window", handleOpenWindow);
-  win.webContents.on("will-navigate", handleOpenWindow);
+  win.webContents.on("new-window", handleNavigate);
+  win.webContents.on("will-navigate", handleNavigate);
   if (isDev) {
     win.webContents.openDevTools({ mode: "detach" });
   }
@@ -113,10 +124,6 @@ const showOpenFileDialog = async () => {
   }
 };
 
-app.on("open-file", (event, fp) => {
-  handleRange(fp);
-});
-
 const resetWindowPositions = () => {
   appWindows.forEach((win) => win.setPosition(0, 0));
 };
@@ -145,6 +152,7 @@ app.on("ready", () => {
   screen.on("display-removed", handleWindowChange);
   primaryDisplay = screen.getPrimaryDisplay();
   createAppWindow();
+  autoUpdater.checkForUpdatesAndNotify();
 });
 
 app.on("window-all-closed", () => {
@@ -172,8 +180,8 @@ app.on("browser-window-created", () => {
   setMenu(true);
 });
 
-const handleOpenWindow = (event, url) => {
-  event.preventDefault();
+const handleNavigate = (event, url) => {
+  if (!isDev || url.startsWith(PROD_URL)) event.preventDefault();
   if (url.startsWith(PROD_URL)) {
     shell.openExternal(BUILDER_URL);
   }

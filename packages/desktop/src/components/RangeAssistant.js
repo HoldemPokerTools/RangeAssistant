@@ -14,6 +14,7 @@ import {
 } from "../data";
 import RangeSearch from "./RangeSearch";
 import "./RangeAssistant.module.css";
+import logo from "./logo.png"
 
 const getRandomInt = (min = 1, max = 100) => {
   min = Math.ceil(Math.max(1, min));
@@ -133,6 +134,7 @@ function RangeAssistant() {
               create a new one
             </span>
           }
+          image={logo}
         >
           <Button href={"https://rangeassistant.holdempoker.tools"} type="primary">
             Create Now

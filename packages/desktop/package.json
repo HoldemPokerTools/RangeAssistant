@@ -15,11 +15,38 @@
   "build": {
     "appId": "com.holdempokertools.rangeassistant",
     "productName": "Range Assistant",
+    "artifactName": "${productName}-Setup-${version}.${ext}",
+    "copyright": "Copyright © 2020 Hold'em Poker Tools",
+    "afterSign": "scripts/notarize.js",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "mac": {
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "gatekeeperAssess": false,
+      "hardenedRuntime": true,
+      "category": "public.app-category.utilities",
+      "icon": "./icons/mac/icon.icns",
+      "type": "distribution",
+      "target": [
+        "dmg"
+      ]
+    },
+    "dmg": {
+      "icon": "./icons/mac/icon.icns",
+      "sign": false
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "./icons/win/icon.ico"
+    },
     "fileAssociations": [
       {
         "ext": "range",
         "name": "Range File",
-        "role": "Viewer"
+        "role": "Editor"
       }
     ]
   },
@@ -28,6 +55,7 @@
     "@holdem-poker-tools/ui-react": "^1.0.0",
     "antd": "^4.3.5",
     "electron-is-dev": "^1.2.0",
+    "electron-updater": "^4.3.4",
     "pouchdb": "^7.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -39,8 +67,10 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "concurrently": "^5.2.0",
+    "copyfiles": "^2.3.0",
     "electron": "9.1.1",
     "electron-builder": "^22.7.0",
+    "electron-notarize": "^1.0.0",
     "electron-reload": "^1.5.0",
     "source-map-explorer": "^2.5.0",
     "wait-on": "^5.1.0"
@@ -54,17 +84,17 @@
   "name": "@holdem-poker-tools/range-assistant-desktop",
   "repository": "https://github.com/HoldemPokerTools/RangeAssistant",
   "private": true,
+  "productName": "Range Assistant",
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "build": "yarn react-build && yarn electron-build",
     "eject": "craco eject",
-    "electron-build": "electron-builder",
+    "electron-build": "electron-builder --win --mac",
     "electron-start": "electron .",
     "postinstall": "electron-builder install-app-deps",
     "react-build": "craco build",
-    "react-start": "FAST_REFRESH=true BROWSER=none craco start",
-    "release": "yarn react-build && electron-builder --publish=always",
-    "start": "concurrently \"yarn react-start\" \"wait-on http://localhost:3000 && yarn electron-start\"",
+    "react-start": "BROWSER=none craco start",
+    "start": "concurrently --kill-others \"yarn react-start\" \"wait-on http://localhost:3000 && yarn electron-start\"",
     "test": "craco test --env=jsdom"
   },
   "version": "0.1.0"
