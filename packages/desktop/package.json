@@ -15,7 +15,7 @@
   "build": {
     "appId": "com.holdempokertools.rangeassistant",
     "productName": "Range Assistant",
-    "artifactName": "${productName}-Setup-${version}.${ext}",
+    "artifactName": "${productName}.${ext}",
     "copyright": "Copyright © 2020 Hold'em Poker Tools",
     "afterSign": "scripts/notarize.js",
     "directories": {
