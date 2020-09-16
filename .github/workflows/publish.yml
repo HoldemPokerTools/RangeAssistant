@@ -23,7 +23,7 @@ jobs:
             ${{ runner.OS }}-
 
       - name: Install Packages
-        run: yarn
+        run: yarn --network-timeout 1000000
 
       - name: Build app
         run: yarn workspace @holdem-poker-tools/range-assistant-desktop build

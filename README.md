@@ -22,7 +22,8 @@ The desktop app is currently available for OS X, however Windows support is comi
 
 ## Download
 
-Coming Soon...
+See the [Releases page](https://github.com/HoldemPokerTools/RangeAssistant/releases) to download
+the desktop app.
 
 ## Key Features
 
@@ -34,7 +35,7 @@ Coming Soon...
 - Store virtually unlimited ranges for any preflop situation
   or opponent type
 - Export ranges to share with the poker community
-- Desktop app runs on OS X, Windows and Linux
+- Desktop app runs on OS X and Windows
 
 ## Credits
 

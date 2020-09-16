@@ -25,15 +25,25 @@ const getOSIcon = (os) => {
   switch (os) {
     case "Mac":
       return <AppleFilled />;
-    // TODO: Once windows is supported
-    // case "Windows":
-    //   return <WindowsFilled/>
+    case "Windows":
+      return <WindowsFilled/>
     default:
       return <></>;
   }
 };
 
-const os = ["Mac" /*"Windows"*/].find(
+const getOSAppExtensionIcon = (os) => {
+  switch (os) {
+    case "Mac":
+      return "dmg";
+    case "Windows":
+      return "exe"
+    default:
+      throw new Error(`Unsupported OS: ${os}`);
+  }
+};
+
+const os = ["Mac", "Windows"].find(
   (i) => (parser.getOS().name || "").indexOf(i) !== -1
 );
 
@@ -103,7 +113,7 @@ function App() {
         </div>
         <Space>
           {os && (
-            <Button>
+            <Button href={`https://github.com/HoldemPokerTools/RangeAssistant/releases/latest/download/Range%20Assistant.${getOSAppExtensionIcon(os)}`} target="_blank">
               Download Range Assistant for {getOSIcon(os)} {os}
             </Button>
           )}
