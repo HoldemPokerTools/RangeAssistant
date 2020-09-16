@@ -10,7 +10,7 @@ import {
   Typography,
   Alert,
 } from "antd";
-import { ExportOutlined, GithubOutlined, AppleFilled } from "@ant-design/icons";
+import { ExportOutlined, GithubOutlined, AppleFilled, WindowsFilled } from "@ant-design/icons";
 import RangeBuilder from "./components/RangeBuilder";
 import { validateActions, validateCombos } from "./ranges/validator";
 import { nanoid } from "nanoid";
