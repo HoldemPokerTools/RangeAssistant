@@ -97,5 +97,5 @@
     "start": "concurrently --kill-others \"yarn react-start\" \"wait-on http://localhost:3000 && yarn electron-start\"",
     "test": "craco test --env=jsdom"
   },
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

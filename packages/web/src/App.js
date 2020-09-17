@@ -113,7 +113,7 @@ function App() {
         </div>
         <Space>
           {os && (
-            <Button href={`https://github.com/HoldemPokerTools/RangeAssistant/releases/latest/download/Range%20Assistant.${getOSAppExtensionIcon(os)}`} target="_blank">
+            <Button href={`https://github.com/HoldemPokerTools/RangeAssistant/releases/latest/download/Range-Assistant.${getOSAppExtensionIcon(os)}`} target="_blank">
               Download Range Assistant for {getOSIcon(os)} {os}
             </Button>
           )}
