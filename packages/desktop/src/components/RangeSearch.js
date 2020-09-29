@@ -13,7 +13,6 @@ const renderItem = (range) => {
         }}
       >
         {range.title}
-        <small>{range.author}</small>
       </div>
     ),
   };

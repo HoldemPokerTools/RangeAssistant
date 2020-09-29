@@ -49,7 +49,7 @@
       }
     },
     "title": {
-      "maxLength": 32,
+      "maxLength": 48,
       "minLength": 1,
       "type": "string"
     }
