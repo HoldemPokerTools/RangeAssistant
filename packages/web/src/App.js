@@ -9,12 +9,15 @@ import {
   message,
   Typography,
   Alert,
+  Menu,
+  Dropdown
 } from "antd";
-import { DownloadOutlined, GithubOutlined, AppleFilled, WindowsFilled } from "@ant-design/icons";
+import { DownloadOutlined, GithubOutlined, AppleFilled, WindowsFilled, DownOutlined } from "@ant-design/icons";
 import RangeBuilder from "./components/RangeBuilder";
 import { validateActions, validateCombos } from "./ranges/validator";
 import { nanoid } from "nanoid";
 import { UAParser } from "ua-parser-js";
+import examples from "./examples";
 import "./App.css";
 const { Text, Link } = Typography;
 
@@ -63,9 +66,30 @@ const onSave = (data) => {
   window.URL.revokeObjectURL(url);
 };
 
+const DropdownMenu = ({ onClick }) => {
+  const menu = (
+    <Menu>
+      {
+        examples.map((e, i) => <Menu.Item key={i} onClick={() => onClick(i)}>
+          {e.title}
+        </Menu.Item>)
+      }
+    </Menu>
+  );
+
+  return (
+    <Dropdown key="more" overlay={menu}>
+      <Button type="link">
+        Examples <DownOutlined />
+      </Button>
+    </Dropdown>
+  );
+};
+
 function App() {
-  const [actions, setActions] = useState([]);
-  const [combos, setCombos] = useState({});
+  const [actions, setActions] = useState(undefined);
+  const [combos, setCombos] = useState(undefined);
+  const [init, setInit] = useState({});
   const [visible, setVisible] = useState(false);
   const [isSaveable, setIsSaveable] = useState(false);
   const [form] = Form.useForm();
@@ -98,6 +122,13 @@ function App() {
     setVisible(false);
   };
 
+  const loadExample = (idx) => {
+    setInit({
+      actions: examples[idx].actions,
+      range: examples[idx].combos
+    });
+  }
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header className="site-layout-header">
@@ -113,6 +144,7 @@ function App() {
         </div>
         <div className="spacer"></div>
         <Space>
+          <DropdownMenu onClick={loadExample}/>
           {os && (
             <Button href={`https://github.com/HoldemPokerTools/RangeAssistant/releases/latest/download/Range-Assistant.${getOSAppExtensionIcon(os)}`} target="_blank">
               Download Range Assistant for {getOSIcon(os)} {os}
@@ -146,6 +178,7 @@ function App() {
           )}
           <div className="gutter" />
           <RangeBuilder
+            init={init}
             onChange={(data) => {
               setCombos(data.range);
               setActions(data.actions);

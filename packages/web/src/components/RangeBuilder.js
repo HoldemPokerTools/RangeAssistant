@@ -12,7 +12,6 @@ import {
 } from "antd";
 import { DeleteFilled, CopyOutlined, FormatPainterOutlined } from "@ant-design/icons";
 import { HandMatrix } from "@holdem-poker-tools/ui-react";
-import basicRange from "../ranges/basic.json";
 const { Title, Text } = Typography;
 const { Option } = Select;
 
@@ -37,9 +36,9 @@ const filterUndefinedKeys = (obj) => Object.keys(obj).reduce((acc, key) => {
   return {...acc, [key]: obj[key]};
 }, {});
 
-function RangeBuilder({ onChange }) {
-  const [actions, setActions] = useState([{"name":"Fold","color":"#d3d3d3"},{"name":"Shove <= 25BB","color":"#7ec78e"},{"name":"Shove <= 20BB","color":"#e89679"},{"name":"Shove <= 15BB","color":"#d9e90e"},{"name":"Shove <= 10BB","color":"#bb63fd"},{"name":"Shove <= 5BB","color":"#6d9ec2"}]);
-  const [range, setRange] = useState({"22":[0,0,0,0,0,1],"33":[0,0,0,0,1,0],"44":[0,0,0,0,1,0],"55":[0,0,1,0,0,0],"66":[0,0,1,0,0,0],"77":[0,0,0,1,0,0],"88":[0,0,1,0,0,0],"99":[0,0,1,0,0,0],"AA":[0,1,0,0,0,0],"AJs":[0,1,0,0,0,0],"AKo":[0,1,0,0,0,0],"AKs":[0,1,0,0,0,0],"AQo":[0,1,0,0,0,0],"AQs":[0,1,0,0,0,0],"ATs":[0,1,0,0,0,0],"JJ":[0,1,0,0,0,0],"KJs":[0,1,0,0,0,0],"KK":[0,1,0,0,0,0],"KQs":[0,1,0,0,0,0],"QQ":[0,1,0,0,0,0],"TT":[0,1,0,0,0,0],"A7s":[0,0,0,0,1,0],"A4s":[0,0,0,0,1,0],"KTs":[0,0,1,0,0,0],"QTs":[0,0,1,0,0,0],"JTs":[0,0,1,0,0,0],"K9s":[0,0,0,1,0,0],"Q9s":[0,0,0,0,1,0],"AJo":[0,0,1,0,0,0],"ATo":[0,0,0,0,1,0],"A9o":[0,0,0,0,0,1],"A8o":[0,0,0,0,0,1],"A7o":[0,0,0,0,0,1],"T8s":[0,0,0,0,0,1],"K7s":[0,0,0,0,0,1],"A3s":[0,0,0,0,0,1],"A2s":[0,0,0,0,0,1],"QJo":[0,0,0,0,0,1],"KTo":[0,0,0,0,0,1],"QJs":[0,1,0,0,0,0],"A9s":[0,0,1,0,0,0],"J9s":[0,0,0,1,0,0],"A8s":[0,0,0,1,0,0],"A5s":[0,0,0,1,0,0],"KQo":[0,0,0,1,0,0],"T9s":[0,0,0,1,0,0],"A6s":[0,0,0,0,1,0],"98s":[0,0,0,0,1,0],"KJo":[0,0,0,0,1,0],"K8s":[0,0,0,0,0,1],"K6s":[0,0,0,0,0,1],"K5s":[0,0,0,0,0,1],"Q8s":[0,0,0,0,0,1],"87s":[0,0,0,0,0,1],"QTo":[0,0,0,0,0,1],"A6o":[0,0,0,0,0,1],"A5o":[0,0,0,0,0,1]});
+function RangeBuilder({ onChange, init }) {
+  const [actions, setActions] = useState(init.actions || [{"name": "Fold", "color": "#d3d3d3"}]);
+  const [range, setRange] = useState(init.range || {});
   const [selected, setSelected] = useState(undefined);
   const [copying, setCopying] = useState(false);
   const [clipboard, setClipboard] = useState(undefined);
@@ -47,6 +46,11 @@ function RangeBuilder({ onChange }) {
   useEffect(() => {
     onChange({ actions, range });
   }, [range, actions, onChange]);
+
+  useEffect(() => {
+    init.range && setRange(init.range);
+    init.actions && setActions(init.actions);
+  }, [init]);
 
   const handleComboActionChange = (combo, actionIdx, newValue) => {
     const existing = [...(range[combo] || actions.map((_) => 0))];
