@@ -10,7 +10,7 @@ pre-flop opening ranges for any scenario. You can create complex, balanced range
 card combo in any pre-flop scenario using the free [web app](https://rangeassistant.holdempoker.tools),
 then export the range to use with the desktop app whilst you are playing on online poker rooms.
 
-The desktop app is currently available for OS X, however Windows support is coming soon!
+The desktop app is currently available for OS X and Windows (beta)!
 
 <p align="center">
   <a href="#download">Download</a> •
@@ -29,13 +29,14 @@ the desktop app.
 
 <img src="https://user-images.githubusercontent.com/42975160/92992469-1a0c7900-f4e3-11ea-844b-5241be5b4daf.png" alt="Range Assistant app" width="300">
 
-- Create complex, balanced preflop ranges
-- Uses an RNG to select the action for a given combo
-  based on configurable percentages
+- Create complex, balanced preflop ranges with up to 12
+  customisable actions
+- Simple interface with drag-to-copy support
+- RNG based action selection for a given combo
 - Store virtually unlimited ranges for any preflop situation
   or opponent type
-- Export ranges to share with the poker community
-- Desktop app runs on OS X and Windows
+- Save and export ranges to share with the poker community
+- Available on OS X and Windows
 
 ## Credits
 

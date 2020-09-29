@@ -13,7 +13,7 @@ import {
 import { DeleteFilled, CopyOutlined, FormatPainterOutlined } from "@ant-design/icons";
 import { HandMatrix } from "@holdem-poker-tools/ui-react";
 import basicRange from "../ranges/basic.json";
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { Option } = Select;
 
 const colors = [
@@ -163,6 +163,7 @@ function RangeBuilder({ onChange }) {
               };
             }}
           />
+          <Text><strong>Pro Tip:</strong> You can "drag" a combo to copy it's action weights to another combo.</Text>
         </Space>
       </Col>
       <Col

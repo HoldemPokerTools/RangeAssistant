@@ -23,7 +23,7 @@
         "required": ["name", "color"],
         "type": "object"
       },
-      "maxItems": 6,
+      "maxItems": 25,
       "minItems": 2,
       "type": "array",
       "uniqueItems": true

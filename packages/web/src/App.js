@@ -10,7 +10,7 @@ import {
   Typography,
   Alert,
 } from "antd";
-import { ExportOutlined, GithubOutlined, AppleFilled, WindowsFilled } from "@ant-design/icons";
+import { DownloadOutlined, GithubOutlined, AppleFilled, WindowsFilled } from "@ant-design/icons";
 import RangeBuilder from "./components/RangeBuilder";
 import { validateActions, validateCombos } from "./ranges/validator";
 import { nanoid } from "nanoid";
@@ -47,7 +47,7 @@ const os = ["Mac", "Windows"].find(
   (i) => (parser.getOS().name || "").indexOf(i) !== -1
 );
 
-const onExport = (data) => {
+const onSave = (data) => {
   const range = { ...data, _id: nanoid() };
   const url = window.URL.createObjectURL(
     new Blob([JSON.stringify(range)], {
@@ -67,12 +67,12 @@ function App() {
   const [actions, setActions] = useState([]);
   const [combos, setCombos] = useState({});
   const [visible, setVisible] = useState(false);
-  const [isExportable, setIsExportable] = useState(false);
+  const [isSaveable, setIsSaveable] = useState(false);
   const [form] = Form.useForm();
 
   useEffect(() => {
-    setIsExportable(validateActions(actions) && validateCombos(combos));
-  }, [actions, combos, setIsExportable]);
+    setIsSaveable(validateActions(actions) && validateCombos(combos));
+  }, [actions, combos, setIsSaveable]);
 
   const handleOk = (e) => {
     form
@@ -80,10 +80,10 @@ function App() {
       .then((values) => {
         form.resetFields();
         try {
-          onExport({ ...values, combos, actions });
-          message.success("Range exported!");
+          onSave({ ...values, combos, actions });
+          message.success("Range saved!");
         } catch {
-          message.error("Could not export range!");
+          message.error("Could not save range!");
         } finally {
           setVisible(false);
         }
@@ -120,10 +120,10 @@ function App() {
           )}
           <Button
             onClick={() => setVisible(true)}
-            disabled={!isExportable}
+            disabled={!isSaveable}
             type="primary"
           >
-            Export Range <ExportOutlined />
+            Save Range <DownloadOutlined />
           </Button>
         </Space>
       </Header>
@@ -138,7 +138,10 @@ function App() {
               }}
               showIcon
               message="First time here?"
-              description="Use this web app to construct a new range then export it to use with the Hold'em Poker Tools Range Assistant desktop app. If on desktop, you can download the Range Assistant desktop app using the button above."
+              description={<Text>
+                Use this web app to construct a new range then save it to use with the Hold'em Poker Tools Range Assistant desktop app.
+                If you're on desktop, you can download the Range Assistant desktop app using the button above.
+              </Text>}
             />
           )}
           <div className="gutter" />
@@ -151,9 +154,9 @@ function App() {
         </div>
       </Content>
       <Modal
-        title="Export Range"
+        title="Save Range"
         visible={visible}
-        okText="Export"
+        okText="Save"
         onOk={handleOk}
         onCancel={handleCancel}
       >
