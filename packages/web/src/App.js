@@ -111,6 +111,7 @@ function App() {
           <br/>
           <span style={{ color: "#bd2829"}}>Range Assistant</span>
         </div>
+        <div className="spacer"></div>
         <Space>
           {os && (
             <Button href={`https://github.com/HoldemPokerTools/RangeAssistant/releases/latest/download/Range-Assistant.${getOSAppExtensionIcon(os)}`} target="_blank">

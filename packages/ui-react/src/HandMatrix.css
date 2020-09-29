@@ -1,5 +1,6 @@
 .hand-matrix {
   text-align: center;
+  user-select: none; 
 }
 
 .hand-matrix-row {

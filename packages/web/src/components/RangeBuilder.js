@@ -10,7 +10,7 @@ import {
   Input,
   Select,
 } from "antd";
-import { DeleteFilled } from "@ant-design/icons";
+import { DeleteFilled, CopyOutlined, FormatPainterOutlined } from "@ant-design/icons";
 import { HandMatrix } from "@holdem-poker-tools/ui-react";
 import basicRange from "../ranges/basic.json";
 const { Title } = Typography;
@@ -32,10 +32,17 @@ const colors = [
   { value: "#06ce0c", name: "Bright Green" },
 ];
 
+const filterUndefinedKeys = (obj) => Object.keys(obj).reduce((acc, key) => {
+  if (obj[key] === undefined) return acc;
+  return {...acc, [key]: obj[key]};
+}, {});
+
 function RangeBuilder({ onChange }) {
   const [actions, setActions] = useState(basicRange.actions);
   const [range, setRange] = useState(basicRange.combos);
   const [selected, setSelected] = useState(undefined);
+  const [copying, setCopying] = useState(false);
+  const [clipboard, setClipboard] = useState(undefined);
 
   useEffect(() => {
     onChange({ actions, range });
@@ -48,20 +55,6 @@ function RangeBuilder({ onChange }) {
       [combo]: existing.map((val, idx) => (idx === actionIdx ? newValue : val)),
     };
     setRange(updatedRange);
-  };
-
-  const removeAction = (idx) => {
-    setActions((e) => [...e.slice(0, idx), ...e.slice(idx + 1)]);
-    setRange((e) =>
-      Object.entries(e).reduce((acc, [k, v]) => {
-        const newValue = v.filter((_, i) => i !== idx);
-        if (newValue.every((val) => val === 0)) return acc;
-        return {
-          ...acc,
-          [k]: newValue,
-        };
-      }, {})
-    );
   };
 
   const handleActionChange = (idx, updates) => {
@@ -91,7 +84,44 @@ function RangeBuilder({ onChange }) {
         };
       }, {})
     );
+    setClipboard(undefined);
   };
+
+  const removeAction = (idx) => {
+    setActions((e) => [...e.slice(0, idx), ...e.slice(idx + 1)]);
+    setRange((e) =>
+      Object.entries(e).reduce((acc, [k, v]) => {
+        const newValue = v.filter((_, i) => i !== idx);
+        if (newValue.every((val) => val === 0)) return acc;
+        return {
+          ...acc,
+          [k]: newValue,
+        };
+      }, {})
+    );
+    setClipboard(undefined);
+  };
+
+  const handleSelect = (val) => {
+    setSelected(val);
+    setCopying(true);
+  }
+
+  const handleMouseEnter = (val) => {
+    if (selected && copying) {
+      setRange(e => filterUndefinedKeys({
+        ...e,
+        [val]: e[selected]
+      }));
+    }
+  }
+
+  const handlePaste = () => {
+    setRange(e => filterUndefinedKeys({
+      ...e,
+      [selected]: clipboard
+    }));
+  }
 
   return (
     <Row gutter={[15, 15]}>
@@ -106,7 +136,9 @@ function RangeBuilder({ onChange }) {
           <Title level={4}>Combos</Title>
           <HandMatrix
             colorize={false}
-            onSelect={setSelected}
+            onMouseDown={handleSelect}
+            onMouseUp={() => setCopying(false)}
+            onMouseEnter={handleMouseEnter}
             comboStyle={(combo) => {
               let bgString;
               if (!range[combo]) bgString = actions[0].color;
@@ -199,7 +231,9 @@ function RangeBuilder({ onChange }) {
             <Empty description="Select a combo to configure" />
           ) : (
             <Space style={{ width: "100%" }} direction="vertical">
-              <Title level={4}>Combo Action Weights: {selected}</Title>
+              <Title level={4}>
+                Combo Action Weights: {selected}
+              </Title>
               {actions.map((action, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center" }}>
                   <span
@@ -219,7 +253,10 @@ function RangeBuilder({ onChange }) {
                   />
                 </div>
               ))}
-              <div className="gutter"></div>
+              <Space>
+                {range[selected] && <Button onClick={() => setClipboard(range[selected])} icon={<CopyOutlined />}>Copy</Button>}
+                {clipboard && <Button onClick={handlePaste} icon={<FormatPainterOutlined />}>Paste</Button>}
+              </Space>
             </Space>
           )}
         </Space>

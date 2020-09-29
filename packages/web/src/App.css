@@ -65,11 +65,14 @@
 }
 
 .logo-text {
-  flex-grow: 1;
   line-height: 1;
   font-size: 22px;
   font-weight: bold;
   display: none;
+}
+
+.spacer {
+  flex-grow: 1;
 }
 
 @media screen and (min-width: 992px) {
