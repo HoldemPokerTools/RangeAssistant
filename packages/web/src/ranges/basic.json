@@ -2,20 +2,20 @@
   "_id": "12345678901234",
   "actions": [
     {
-      "color": "#d3d3d3",
-      "name": "Fold"
+      "name": "Fold",
+      "color": "#d3d3d3"
     },
     {
-      "color": "#efe819",
-      "name": "Call"
+        "name": "Call",
+        "color": "#d9e90e"
     },
     {
-      "color": "#06ce0c",
-      "name": "Raise 2BB-3BB"
+        "name": "Raise 2BB-3BB",
+        "color": "#7ec78e"
     },
     {
-      "color": "#bb63fd",
-      "name": "Raise 4BB-6BB"
+        "name": "Raise 4BB-6BB",
+        "color": "#e89679"
     }
   ],
   "author": "Hold'em Poker Tools",

@@ -9,15 +9,15 @@
         },
         {
             "name": "Call",
-            "color": "#efe819"
+            "color": "#d9e90e"
         },
         {
             "name": "Raise 2BB-3BB",
-            "color": "#06ce0c"
+            "color": "#7ec78e"
         },
         {
             "name": "Raise 4BB-6BB",
-            "color": "#bb63fd"
+            "color": "#e89679"
         }
     ],
     "combos": {
