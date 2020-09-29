@@ -51,7 +51,7 @@
     ]
   },
   "dependencies": {
-    "@craco/craco": "^5.6.4",
+    "@craco/craco": "^5.7.0",
     "@holdem-poker-tools/ui-react": "^1.0.0",
     "antd": "^4.3.5",
     "electron-is-dev": "^1.2.0",
