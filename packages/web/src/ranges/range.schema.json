@@ -15,7 +15,7 @@
             "type": "string"
           },
           "name": {
-            "maxLength": 16,
+            "maxLength": 32,
             "minLength": 1,
             "type": "string"
           }

@@ -4,6 +4,7 @@ import {
   RedoOutlined,
   InfoCircleOutlined,
   DeleteOutlined,
+  LoadingOutlined
 } from "@ant-design/icons";
 import { HandMatrix } from "@holdem-poker-tools/ui-react";
 import {
@@ -117,7 +118,7 @@ function RangeAssistant() {
   if (loading)
     return (
       <div style={{ textAlign: "center", padding: 15 }}>
-        <Spin />
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}/>
       </div>
     );
 
@@ -160,7 +161,7 @@ function RangeAssistant() {
       <div className="gutter"></div>
       {loading && (
         <div style={{ textAlign: "center" }}>
-          <Spin />
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}/>
         </div>
       )}
       {!range && !loading && (
