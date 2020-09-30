@@ -35,9 +35,8 @@ export default ({ ranges, value = "", ...props }) => {
       onSelect={onSelect}
       options={ranges.map((r) => renderItem(r))}
       filterOption={(inputValue, option) => {
-        return (
-          option.title.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
-        );
+        const searchParts = inputValue.split(" ");
+        return searchParts.every(part => option.title.toLowerCase().indexOf(part.toLowerCase()) !== -1);
       }}
     >
       <Input.Search size="large" placeholder="Search ranges" />
