@@ -9,10 +9,9 @@ import {
   message,
   Typography,
   Alert,
-  Menu,
-  Dropdown
+  Cascader
 } from "antd";
-import { DownloadOutlined, GithubOutlined, AppleFilled, WindowsFilled, DownOutlined } from "@ant-design/icons";
+import { DownloadOutlined, GithubOutlined, AppleFilled, WindowsFilled } from "@ant-design/icons";
 import RangeBuilder from "./components/RangeBuilder";
 import { validateActions, validateCombos } from "./ranges/validator";
 import { nanoid } from "nanoid";
@@ -66,26 +65,6 @@ const onSave = (data) => {
   window.URL.revokeObjectURL(url);
 };
 
-const DropdownMenu = ({ onClick }) => {
-  const menu = (
-    <Menu>
-      {
-        examples.map((e, i) => <Menu.Item key={i} onClick={() => onClick(i)}>
-          {e.title}
-        </Menu.Item>)
-      }
-    </Menu>
-  );
-
-  return (
-    <Dropdown key="more" overlay={menu}>
-      <Button type="link">
-        Examples <DownOutlined />
-      </Button>
-    </Dropdown>
-  );
-};
-
 function App() {
   const [actions, setActions] = useState(undefined);
   const [combos, setCombos] = useState(undefined);
@@ -122,11 +101,21 @@ function App() {
     setVisible(false);
   };
 
-  const loadExample = (idx) => {
-    setInit({
-      actions: examples[idx].actions,
-      range: examples[idx].combos
-    });
+  const loadExample = (examplePath) => {
+    if (examplePath.length) {
+      const data = examplePath.reduce((acc, next) => {
+        return acc.children.find(i => i.value === next);
+      }, {children: examples}).data;
+      setInit({
+        actions: data.actions,
+        range: data.combos
+      });
+    }
+  }
+
+  const filter = (inputValue, path) => {
+    const searchParts = inputValue.split(" ");
+    return searchParts.every(part => path.some(option => option.label.toLowerCase().indexOf(part.toLowerCase()) > -1));
   }
 
   return (
@@ -144,7 +133,7 @@ function App() {
         </div>
         <div className="spacer"></div>
         <Space>
-          <DropdownMenu onClick={loadExample}/>
+          <Cascader showSearch={{matchInputWidth: false, filter}} options={examples} onChange={loadExample} placeholder="Choose an Example..." />
           {os && (
             <Button href={`https://github.com/HoldemPokerTools/RangeAssistant/releases/latest/download/Range-Assistant.${getOSAppExtensionIcon(os)}`} target="_blank">
               Download Range Assistant for {getOSIcon(os)} {os}
