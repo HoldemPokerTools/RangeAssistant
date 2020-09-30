@@ -12,7 +12,6 @@ import {
 } from "antd";
 import { DeleteFilled, CopyOutlined, FormatPainterOutlined } from "@ant-design/icons";
 import { HandMatrix } from "@holdem-poker-tools/ui-react";
-import {nanoid} from "nanoid";
 const { Title, Text } = Typography;
 const { Option } = Select;
 
@@ -254,6 +253,7 @@ function RangeBuilder({ onChange, init }) {
                   ></span>
                   <InputNumber
                     value={range[selected] ? range[selected][i] : 0}
+                    min={0}
                     onChange={(val) =>
                       handleComboActionChange(selected, i, val)
                     }
