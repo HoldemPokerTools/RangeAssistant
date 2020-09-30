@@ -30,6 +30,7 @@ const colors = [
   { value: "#e09cc5", name: "Pink" },
   { value: "#8a0000", name: "Maroon" },
   { value: "#06ce0c", name: "Bright Green" },
+  { value: "#1b9af7", name: "Bright Blue" },
 ];
 
 const filterUndefinedKeys = (obj) => Object.keys(obj).reduce((acc, key) => {

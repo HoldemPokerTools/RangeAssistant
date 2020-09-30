@@ -36,6 +36,7 @@ the desktop app.
 - Store virtually unlimited ranges for any preflop situation
   or opponent type
 - Save and export ranges to share with the poker community
+- 150+ free example charts for tournament players
 - Available on OS X and Windows
 
 ## Credits

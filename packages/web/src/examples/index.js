@@ -1,12 +1,39 @@
 export default [
   {
+    value: 'MTT',
+    label: 'MTT',
+    children: [
+      {
+        value: 'rfi',
+        label: 'RFI',
+        children: [
+          {
+            value: 'FR',
+            label: 'Full Ring',
+            children: ["UTG", "UTG1", "UTG2", "LJ", "HJ", "CO", "BTN"].map(position => ({
+              value: position,
+              label: position,
+              children: [
+                {
+                  data: require(`./MTT/RFI/FR/${position}/30bb`),
+                  value: `30BB`,
+                  label: '30BB'
+                },
+              ]
+            }))
+          }
+        ]
+      }
+    ]
+  },
+  {
     value: 'push_fold',
     label: 'Push/Fold',
     children: [
       {
         value: 'FR',
         label: 'Full Ring',
-        children: ["UTG", "UTG1", "UTG2", "LJ", "HJ", "CO", "BTN"].map(position => ({
+        children: ["UTG", "UTG1", "UTG2", "LJ", "HJ", "CO", "BTN", "SB"].map(position => ({
           value: position,
           label: position,
           children: [
