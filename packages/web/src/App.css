@@ -87,16 +87,26 @@
   display: none;
 }
 
+.export-button {
+  display: none;
+}
+
 .spacer {
   flex-grow: 1;
 }
 
 @media screen and (min-width: 992px) {
-  .logo-text {
+  .export-button {
     display: block;
   }
   .content {
     padding: 0 50px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .logo-text {
+    display: block;
   }
 }
 

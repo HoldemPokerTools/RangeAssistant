@@ -133,13 +133,14 @@ function App() {
         </div>
         <div className="spacer"></div>
         <Space>
-          <Cascader showSearch={{matchInputWidth: false, filter}} options={examples} onChange={loadExample} placeholder="Choose an Example..." />
+          <Cascader style={{width: 350, maxWidth: "100%"}} showSearch={{matchInputWidth: false, filter}} options={examples} onChange={loadExample} placeholder="Choose an Example..." />
           {os && (
             <Button href={`https://github.com/HoldemPokerTools/RangeAssistant/releases/latest/download/Range-Assistant.${getOSAppExtensionIcon(os)}`} target="_blank">
               Download Range Assistant for {getOSIcon(os)} {os}
             </Button>
           )}
           <Button
+            className="export-button"
             onClick={() => setVisible(true)}
             disabled={!isSaveable}
             type="primary"

@@ -113,7 +113,7 @@ const showOpenFileDialog = async () => {
         message: "Select a Range",
         buttonLabel: "Open Range(s)",
         properties: ["openFile", "multiSelections"],
-        filters: [{ name: "Range Files", extensions: ["range"] }],
+        filters: [{ name: "Range Files", extensions: ["range", "json"] }],
       });
       if (!canceled) {
         filePaths.forEach(handleRange);
