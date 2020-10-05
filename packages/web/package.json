@@ -15,7 +15,7 @@
   "dependencies": {
     "@craco/craco": "^5.7.0",
     "@holdem-poker-tools/ui-react": "^1.0.0",
-    "ajv": "^6.12.4",
+    "ajv": "^6.12.5",
     "antd": "^4.6.6",
     "nanoid": "^3.1.12",
     "react": "^16.13.1",
