@@ -6,7 +6,7 @@ import {
   DeleteOutlined,
   LoadingOutlined
 } from "@ant-design/icons";
-import { HandMatrix } from "@holdem-poker-tools/ui-react";
+import { HandMatrix } from "@holdem-poker-tools/hand-matrix";
 import {
   getRanges,
   registerListener,

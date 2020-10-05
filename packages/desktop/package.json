@@ -51,8 +51,7 @@
     ]
   },
   "dependencies": {
-    "@craco/craco": "^5.7.0",
-    "@holdem-poker-tools/ui-react": "^1.0.0",
+    "@holdem-poker-tools/hand-matrix": "^0.1.0",
     "antd": "^4.6.6",
     "electron-is-dev": "^1.2.0",
     "electron-updater": "^4.3.4",
@@ -88,14 +87,14 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "build": "yarn react-build && yarn electron-build",
-    "eject": "craco eject",
+    "eject": "react-scripts eject",
     "electron-build": "electron-builder --win --mac",
     "electron-start": "electron .",
     "postinstall": "electron-builder install-app-deps",
-    "react-build": "craco build",
-    "react-start": "BROWSER=none craco start",
+    "react-build": "react-scripts build",
+    "react-start": "BROWSER=none react-scripts start",
     "start": "concurrently --kill-others \"yarn react-start\" \"wait-on http://localhost:3000 && yarn electron-start\"",
-    "test": "craco test --env=jsdom"
+    "test": "react-scripts test --env=jsdom"
   },
   "version": "0.2.0"
 }

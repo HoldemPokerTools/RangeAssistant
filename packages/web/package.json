@@ -13,8 +13,7 @@
     ]
   },
   "dependencies": {
-    "@craco/craco": "^5.7.0",
-    "@holdem-poker-tools/ui-react": "^1.0.0",
+    "@holdem-poker-tools/hand-matrix": "^0.1.0",
     "ajv": "^6.12.5",
     "antd": "^4.6.6",
     "nanoid": "^3.1.12",
@@ -39,12 +38,12 @@
   "name": "@holdem-poker-tools/range-assistant-web",
   "private": true,
   "scripts": {
-    "build": "craco build",
+    "build": "react-scripts build",
     "deploy": "gh-pages -d build",
-    "eject": "craco eject",
+    "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "start": "PORT=3001 FAST_REFRESH=true craco start",
-    "test": "craco test --env=jsdom"
+    "start": "PORT=3001 FAST_REFRESH=true react-scripts start",
+    "test": "react-scripts test --env=jsdom"
   },
   "version": "0.1.0"
 }
