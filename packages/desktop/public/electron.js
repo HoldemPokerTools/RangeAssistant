@@ -150,18 +150,23 @@ const handleNavigate = (event, url) => {
 
 const hasValidExtension = fp => fp.endsWith(".range") || fp.endsWith(".json");
 
+const parseFileArgs = args => args.filter(fp => {
+  return fp.substring(0, 2) !== '--' && hasValidExtension(fp) && fs.existsSync(fp);
+});
+
 if (!app.requestSingleInstanceLock()) {
   app.quit()
 } else {
+  let files = parseFileArgs(process.argv);
+  !isMac && files.forEach(fp => initOpenFileQueue.push(fp));
+
   app.on('second-instance', (event, argv, workingDirectory) => {
     // Someone tried to run a second instance, we should focus our window and load any ranges that triggered the app.
     if (appWindow) {
       if (appWindow.isMinimized()) appWindow.restore();
       appWindow.focus();
       let args = argv.slice(isDev ? 2 : 1);
-      let files = args.filter(fp => {
-        return fp.substring(0, 2) !== '--' && hasValidExtension(fp) && fs.existsSync(fp);
-      });
+      let files = parseFileArgs(args);
       !isMac && files.forEach(handleRange);
     }
   });
