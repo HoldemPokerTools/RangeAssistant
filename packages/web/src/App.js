@@ -12,10 +12,11 @@ import {
   Cascader
 } from "antd";
 import { DownloadOutlined, GithubOutlined, AppleFilled, WindowsFilled } from "@ant-design/icons";
-import RangeBuilder from "./components/RangeBuilder";
-import { validateActions, validateCombos } from "./ranges/validator";
 import { nanoid } from "nanoid";
 import { UAParser } from "ua-parser-js";
+import fileDownload from "js-file-download";
+import RangeBuilder from "./components/RangeBuilder";
+import { validateActions, validateCombos } from "./ranges/validator";
 import examples from "./examples";
 import "./App.css";
 const { Text, Link } = Typography;
@@ -51,18 +52,7 @@ const os = ["Mac", "Windows"].find(
 
 const onSave = (data) => {
   const range = { ...data, _id: nanoid() };
-  const url = window.URL.createObjectURL(
-    new Blob([JSON.stringify(range)], {
-      type: "application/json",
-    })
-  );
-  const a = document.createElement("a");
-  a.style.display = "none";
-  a.href = url;
-  a.download = `${data.title.toLowerCase().replace(/\s+/g, "-")}.range`;
-  document.body.appendChild(a);
-  a.click();
-  window.URL.revokeObjectURL(url);
+  fileDownload(range, `${data.title.toLowerCase().replace(/\s+/g, "-")}.range`, "application/json");
 };
 
 function App() {

@@ -1,7 +1,6 @@
 const isMac = process.platform === "darwin";
 
 module.exports = (app, shell, enableImport, onOpen, createAppWindow) => [
-  // { role: 'appMenu' }
   ...(isMac
     ? [
         {
@@ -35,16 +34,6 @@ module.exports = (app, shell, enableImport, onOpen, createAppWindow) => [
         enabled: enableImport,
         accelerator: "CmdOrCtrl+I",
       },
-      // {
-      // "label":"Open Recent",
-      // "role":"recentdocuments",
-      // "submenu":[
-      // {
-      //     "label":"Clear Recent",
-      //     "role":"clearrecentdocuments"
-      // }
-      // ]
-      // },
       isMac ? { role: "close" } : { role: "quit" },
     ],
   },
