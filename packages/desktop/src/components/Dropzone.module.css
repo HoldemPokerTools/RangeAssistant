@@ -1,0 +1,26 @@
+.root {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  outline: none;
+}
+
+.overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(68, 68, 68, 0.75);
+  border: 3px dashed #55c123;
+  padding: 15px;
+  z-index: 2;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.overlayText {
+  color: white;
+}

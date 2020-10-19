@@ -128,19 +128,12 @@ function RangeAssistant() {
         <Empty
           description={
             <span>
-              No ranges found.
-              <br />
-              Import a range file (
-              <kbd>{window.Ranges.isMac ? "Cmd" : "Ctrl"}</kbd>+<kbd>I</kbd>) or
-              create a new one
+              Drag and drop your <a  href={"https://rangeassistant.holdempoker.tools"}>downloaded range files</a> here or search for them using (
+              <kbd>{window.Ranges.isMac ? "Cmd" : "Ctrl"}</kbd>+<kbd>I</kbd>).
             </span>
           }
           image={logo}
-        >
-          <Button href={"https://rangeassistant.holdempoker.tools"} type="primary">
-            Create Now
-          </Button>
-        </Empty>
+        />
       </div>
     );
   }

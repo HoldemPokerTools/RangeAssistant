@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, Menu, shell, dialog } = require("electron");
+const { app, BrowserWindow, screen, Menu, shell, dialog, ipcMain, ipcRenderer } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
 const defaultMenu = require(path.join(__dirname, "./menu.js"));
@@ -44,10 +44,9 @@ app.on('will-finish-launching', () => {
   app.on("open-file", (event, fp) => {
     handleRange(fp);
   });
-  // ipcMain.on("open-file", (event, fp) => {
-  //   console.log(fp)
-  //   handleRange(fp);
-  // })
+  ipcMain.on("open-file", (event, fp) => {
+    handleRange(fp);
+  })
 });
 
 function createAppWindow() {
@@ -86,22 +85,23 @@ const validateRange = (range) => {
     throw new Error(`Invalid range: ${ajv.errorsText()}`);
 };
 
-const handleRange = async (fp) => {
-  try {
-    const data = await readFile(fp, "utf8");
-    const range = JSON.parse(data);
-    validateRange(range);
-    appWindows.forEach((win) => {
-      win.webContents.send("add-range", range);
+const handleRange = (fp) => {
+  readFile(fp, "utf8")
+    .then(data => {
+      const range = JSON.parse(data);
+      validateRange(range);
+      appWindows.forEach((win) => {
+        win.webContents.send("add-range", range)
+      });
+    })
+    .catch(err => {
+      console.debug(err);
+      dialog.showMessageBox(null, {
+        message: "Invalid Range File",
+        detail:
+          "The range file is not valid. Please try re-exporting the range file from the range builder",
+      });
     });
-  } catch (err) {
-    console.debug(err);
-    await dialog.showMessageBox(null, {
-      message: "Invalid Range File",
-      detail:
-        "The range file is not valid. Please try re-exporting the range file from the range builder",
-    });
-  }
 };
 
 const showOpenFileDialog = async () => {

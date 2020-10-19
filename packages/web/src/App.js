@@ -52,7 +52,7 @@ const os = ["Mac", "Windows"].find(
 
 const onSave = (data) => {
   const range = { ...data, _id: nanoid() };
-  fileDownload(range, `${data.title.toLowerCase().replace(/\s+/g, "-")}.range`, "application/json");
+  fileDownload(JSON.stringify(range), `${data.title.toLowerCase().replace(/\s+/g, "-")}.range`, "application/json");
 };
 
 function App() {

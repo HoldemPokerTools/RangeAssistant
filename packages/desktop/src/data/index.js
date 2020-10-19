@@ -8,6 +8,7 @@ export const storeRange = async (range) => {
     return await db.get(range._id);
   } catch (err) {
     if (err.status !== 404) {
+      console.error(err);
       throw err;
     }
     return await db.put(range);
