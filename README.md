@@ -27,7 +27,8 @@ the desktop app.
 
 ## Key Features
 
-<img src="https://user-images.githubusercontent.com/42975160/92992469-1a0c7900-f4e3-11ea-844b-5241be5b4daf.png" alt="Range Assistant app" width="300">
+<img src="https://user-images.githubusercontent.com/42975160/92992469-1a0c7900-f4e3-11ea-844b-5241be5b4daf.png" alt="Range Assistant OSX" width="300">
+<img src="https://user-images.githubusercontent.com/42975160/96449101-42874180-120c-11eb-8f5d-c415bd2049af.png" alt="Range Assistant Windows" width="300">
 
 - Create complex, balanced preflop ranges with up to 12
   customisable actions
