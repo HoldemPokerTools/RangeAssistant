@@ -14,11 +14,11 @@
   },
   "dependencies": {
     "@holdem-poker-tools/hand-matrix": "^0.1.0",
-    "ajv": "^6.12.5",
+    "ajv": "^6.12.6",
     "antd": "^4.7.1",
     "nanoid": "^3.1.12",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-scripts": "3.4.3",
     "ua-parser-js": "^0.7.22"
   },
