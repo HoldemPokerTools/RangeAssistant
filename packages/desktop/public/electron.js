@@ -17,42 +17,35 @@ const BUILDER_URL = isDev ? DEV_URL : PROD_URL;
 
 const readFile = util.promisify(fs.readFile);
 
-let appWindows = [];
+let appWindow;
+let initOpenFileQueue = [];
 let primaryDisplay;
 let dialogShown = false;
-
-const commonWindowOptions = {
-  resizable: false,
-  transparent: false,
-  hasShadow: true,
-  backgroundColor: "#ffffff",
-  fullscreenable: false,
-  alwaysOnTop: true,
-  maximizable: false,
-  minimizable: true,
-  title: "Range Assistant",
-  webPreferences: {
-    devTools: isDev,
-    nodeIntegration: false,
-    nodeIntegrationInWorker: false,
-    enableRemoteModule: false,
-    contextIsolation: true,
-    preload: path.join(__dirname, "preload.js"),
-  },
+// Default settings
+let settings = {
+  alwaysOnTop: false,
+  fadeOnBlur: false,
 };
 
-app.on('will-finish-launching', () => {
-  app.on("open-file", (event, fp) => {
-    handleRange(fp);
-  });
-  ipcMain.on("open-file", (event, fp) => {
-    handleRange(fp);
-  })
-});
-
-function createAppWindow() {
+const createAppWindow = async () => {
   let win = new BrowserWindow({
-    ...commonWindowOptions,
+    resizable: false,
+    transparent: false,
+    hasShadow: true,
+    backgroundColor: "#ffffff",
+    fullscreenable: false,
+    alwaysOnTop: settings.alwaysOnTop,
+    maximizable: false,
+    minimizable: true,
+    title: "Range Assistant",
+    webPreferences: {
+      devTools: isDev,
+      nodeIntegration: false,
+      nodeIntegrationInWorker: false,
+      enableRemoteModule: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
     width,
     height,
     minWidth: width,
@@ -63,18 +56,23 @@ function createAppWindow() {
   } else {
     win.loadFile(path.join(__dirname, "../build/index.html"));
   }
-  appWindows.push(win);
-  const idx = appWindows.length - 1;
+  appWindow = win;
 
   win.on("closed", () => {
-    win = null;
-    appWindows.splice(idx, 1);
+    appWindow = null;
   });
   // see https://github.com/electron/electron/issues/20618 and https://github.com/electron/electron/issues/1336
   // win.setAspectRatio(1, {width: 0, height: 74});
 
   win.webContents.on("new-window", handleNavigate);
   win.webContents.on("will-navigate", handleNavigate);
+  win.webContents.on('did-finish-load', () => {
+    if (initOpenFileQueue.length) {
+      const fps = initOpenFileQueue = [...initOpenFileQueue];
+      initOpenFileQueue = [];
+      fps.forEach((fp) => handleRange(fp));
+    }
+  });
   if (isDev) {
     win.webContents.openDevTools({ mode: "detach" });
   }
@@ -91,9 +89,7 @@ const handleRange = (fp) => {
     .then(data => {
       const range = JSON.parse(data);
       validateRange(range);
-      appWindows.forEach((win) => {
-        win.webContents.send("add-range", range)
-      });
+      appWindow && appWindow.webContents.send("add-range", range);
     })
     .catch(err => {
       console.debug(err);
@@ -125,54 +121,25 @@ const showOpenFileDialog = async () => {
   }
 };
 
-const resetWindowPositions = () => {
-  appWindows.forEach((win) => win.setPosition(0, 0));
+const resetWindowPosition = () => {
+  appWindow && appWindow.setPosition(0, 0);
 };
+
+const handleSettingsChange = (updated) => {
+  Object.assign(settings, updated);
+  appWindow && appWindow.setAlwaysOnTop(settings.alwaysOnTop);
+}
 
 const setMenu = () => {
   const menu = defaultMenu(
     app,
     shell,
     showOpenFileDialog,
-    createAppWindow
+    settings,
+    handleSettingsChange
   );
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
 };
-
-app.on("ready", () => {
-  // handle display changes
-  const handleWindowChange = () => {
-    const newPrimary = screen.getPrimaryDisplay();
-    if (newPrimary.id !== primaryDisplay.id) {
-      primaryDisplay = newPrimary;
-      resetWindowPositions();
-    }
-  };
-  screen.on("display-added", handleWindowChange);
-  screen.on("display-removed", handleWindowChange);
-  primaryDisplay = screen.getPrimaryDisplay();
-  setMenu();
-  createAppWindow();
-  autoUpdater.checkForUpdatesAndNotify();
-});
-
-app.on("window-all-closed", () => {
-  app.quit();
-});
-
-app.on("activate", () => {
-  if (appWindows.length === 0) {
-    createAppWindow();
-  }
-});
-
-app.on("browser-window-focus", () => {
-  appWindows.forEach((win) => win.setOpacity(1));
-});
-
-app.on("browser-window-blur", () => {
-  appWindows.forEach((win) => win.setOpacity(0.3));
-});
 
 const handleNavigate = (event, url) => {
   if (!isDev || url.startsWith(PROD_URL)) event.preventDefault();
@@ -181,15 +148,84 @@ const handleNavigate = (event, url) => {
   }
 };
 
-app.on("web-contents-created", (event, contents) => {
-  contents.on("will-attach-webview", (event, webPreferences, params) => {
-    // Strip away preload scripts if unused or verify their location is legitimate
-    if (webPreferences !== commonWindowOptions.webPreferences) {
-      event.preventDefault();
-      return;
+const hasValidExtension = fp => fp.endsWith(".range") || fp.endsWith(".json");
+
+if (!app.requestSingleInstanceLock()) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, argv, workingDirectory) => {
+    // Someone tried to run a second instance, we should focus our window and load any ranges that triggered the app.
+    if (appWindow) {
+      if (appWindow.isMinimized()) appWindow.restore();
+      appWindow.focus();
+      let args = argv.slice(isDev ? 2 : 1);
+      let files = args.filter(el => {
+        return el.substring(0, 2) !== '--' && hasValidExtension(fp) && fs.existsSync(el);
+      });
+      !isMac && files.forEach(handleRange);
     }
   });
-});
+    
+  app.on('will-finish-launching', () => {
+    app.on("open-file", (event, fp) => {
+      event.preventDefault();
+      if (app.isReady() === false) {
+        initOpenFileQueue.push(fp);
+      } else {
+        handleRange(fp);
+      };
+    });
+    ipcMain.on("open-file", (event, fp) => {
+      handleRange(fp);
+    });
+  });
+
+  app.on("ready", () => {
+    // handle display changes
+    const handleWindowChange = () => {
+      const newPrimary = screen.getPrimaryDisplay();
+      if (newPrimary.id !== primaryDisplay.id) {
+        primaryDisplay = newPrimary;
+        resetWindowPosition();
+      }
+    };
+    screen.on("display-added", handleWindowChange);
+    screen.on("display-removed", handleWindowChange);
+    primaryDisplay = screen.getPrimaryDisplay();
+    setMenu();
+    createAppWindow();
+    autoUpdater.checkForUpdatesAndNotify();
+  });
+
+  app.on("window-all-closed", () => {
+    app.quit();
+  });
+
+  app.on("activate", () => {
+    if (!appWindow) {
+      createAppWindow();
+    }
+  });
+
+  app.on("browser-window-focus", () => {
+    appWindow && appWindow.setOpacity(1);
+  });
+
+  app.on("browser-window-blur", () => {
+    appWindow && appWindow.setOpacity(settings.fadeOnBlur ? 0.3 : 1);
+  });
+
+  app.on("web-contents-created", (event, contents) => {
+    contents.on("will-attach-webview", (event, webPreferences, params) => {
+      // Strip away preload scripts if unused or verify their location is legitimate
+      if (webPreferences !== commonWindowOptions.webPreferences) {
+        event.preventDefault();
+        return;
+      }
+    });
+  });
+
+}
 
 if (isDev) {
   require("electron-reload")(__dirname, {

@@ -1,6 +1,6 @@
 const isMac = process.platform === "darwin";
 
-module.exports = (app, shell, onOpen, createAppWindow) => [
+module.exports = (app, shell, onOpen, settings, onSettingsChange) => [
   ...(isMac
     ? [
         {
@@ -23,16 +23,11 @@ module.exports = (app, shell, onOpen, createAppWindow) => [
     label: "File",
     submenu: [
       {
-        label: "New Window",
-        click: createAppWindow,
-        accelerator: "CmdOrCtrl+N",
-      },
-      { type: "separator" },
-      {
         label: "Import Range",
         click: onOpen,
         accelerator: "CmdOrCtrl+I",
       },
+      { type: "separator" },
       isMac ? { role: "close" } : { role: "quit" },
     ],
   },
@@ -54,6 +49,23 @@ module.exports = (app, shell, onOpen, createAppWindow) => [
           ]
         : [{ role: "delete" }, { type: "separator" }, { role: "selectAll" }]),
     ],
+  },
+  {
+    label: "Appearance",
+    submenu: [
+      {
+        label: "Always on Top",
+        type: "checkbox",
+        checked: settings.alwaysOnTop,
+        click: (e) => onSettingsChange({...settings, alwaysOnTop: e.checked})
+      },
+      {
+        label: "Fade When Inactive",
+        type: "checkbox",
+        checked: settings.fadeOnBlur,
+        click: (e) => onSettingsChange({...settings, fadeOnBlur: e.checked})
+      },
+    ]
   },
   {
     role: "help",

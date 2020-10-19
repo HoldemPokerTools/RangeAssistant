@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require("electron");
-
+const hasValidExtension = fp => fp.endsWith(".range") || fp.endsWith(".json");
 contextBridge.exposeInMainWorld("Ranges", {
   isMac: process.platform === "darwin",
   onAdd: (handler) => {
@@ -8,7 +8,7 @@ contextBridge.exposeInMainWorld("Ranges", {
     ipcRenderer.on("add-range", newCallback);
   },
   importRangeFile: (fp) => {
-    if (fp && fp.endsWith(".range")) {
+    if (fp && hasValidExtension(fp)) {
       ipcRenderer.send('open-file', fp)
     }
   }
