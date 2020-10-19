@@ -159,8 +159,8 @@ if (!app.requestSingleInstanceLock()) {
       if (appWindow.isMinimized()) appWindow.restore();
       appWindow.focus();
       let args = argv.slice(isDev ? 2 : 1);
-      let files = args.filter(el => {
-        return el.substring(0, 2) !== '--' && hasValidExtension(fp) && fs.existsSync(el);
+      let files = args.filter(fp => {
+        return fp.substring(0, 2) !== '--' && hasValidExtension(fp) && fs.existsSync(fp);
       });
       !isMac && files.forEach(handleRange);
     }
