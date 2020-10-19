@@ -1,6 +1,6 @@
 const isMac = process.platform === "darwin";
 
-module.exports = (app, shell, enableImport, onOpen, createAppWindow) => [
+module.exports = (app, shell, onOpen, createAppWindow) => [
   ...(isMac
     ? [
         {
@@ -31,7 +31,6 @@ module.exports = (app, shell, enableImport, onOpen, createAppWindow) => [
       {
         label: "Import Range",
         click: onOpen,
-        enabled: enableImport,
         accelerator: "CmdOrCtrl+I",
       },
       isMac ? { role: "close" } : { role: "quit" },

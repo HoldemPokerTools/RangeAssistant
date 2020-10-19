@@ -8,8 +8,8 @@ import styles from "./Dropzone.module.css";
 function Dropzone({ children }) {
   const onDrop = useCallback(acceptedFiles => {
     acceptedFiles.forEach(f => window.Ranges.importRangeFile(f.path));
-  }, [])
-  const {getRootProps, isDragActive} = useDropzone({onDrop})
+  }, []);
+  const {getRootProps, isDragActive} = useDropzone({onDrop});
 
   return (
     <div className={styles.root} {...getRootProps()}>
@@ -21,7 +21,7 @@ function Dropzone({ children }) {
         </div>
       }
     </div>
-  )
-}
+  );
+};
 
 export default Dropzone;

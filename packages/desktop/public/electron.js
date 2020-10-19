@@ -6,9 +6,10 @@ const fs = require("fs");
 const util = require("util");
 const Ajv = require("ajv");
 const { autoUpdater } = require("electron-updater")
+const isMac = process.platform === "darwin";
 
 const width = 330;
-const height = 426;
+const height = isMac ? 426 : 446;
 
 const PROD_URL = "https://rangeassistant.holdempoker.tools";
 const DEV_URL = "http://localhost:3001";
@@ -128,11 +129,10 @@ const resetWindowPositions = () => {
   appWindows.forEach((win) => win.setPosition(0, 0));
 };
 
-const setMenu = (enableImport) => {
+const setMenu = () => {
   const menu = defaultMenu(
     app,
     shell,
-    enableImport,
     showOpenFileDialog,
     createAppWindow
   );
@@ -151,15 +151,13 @@ app.on("ready", () => {
   screen.on("display-added", handleWindowChange);
   screen.on("display-removed", handleWindowChange);
   primaryDisplay = screen.getPrimaryDisplay();
+  setMenu();
   createAppWindow();
   autoUpdater.checkForUpdatesAndNotify();
 });
 
 app.on("window-all-closed", () => {
-  setMenu(false);
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  app.quit();
 });
 
 app.on("activate", () => {
@@ -174,10 +172,6 @@ app.on("browser-window-focus", () => {
 
 app.on("browser-window-blur", () => {
   appWindows.forEach((win) => win.setOpacity(0.3));
-});
-
-app.on("browser-window-created", () => {
-  setMenu(true);
 });
 
 const handleNavigate = (event, url) => {

@@ -183,7 +183,7 @@ function App() {
                 required: true,
                 message: "Please input a valid name for this range",
                 min: 1,
-                max: 24,
+                max: 80,
               },
             ]}
           >
