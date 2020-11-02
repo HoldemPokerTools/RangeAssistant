@@ -18,7 +18,7 @@ const renderItem = (range) => {
   };
 };
 
-export default ({ ranges, value = "", ...props }) => {
+export const RangeSearch = ({ ranges, value = "", ...props }) => {
   const onSelect = (data) => {
     props.onSelect && props.onSelect(data);
   };
@@ -43,3 +43,6 @@ export default ({ ranges, value = "", ...props }) => {
     </AutoComplete>
   );
 };
+
+export default RangeSearch;
+

@@ -44,7 +44,7 @@
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "start": "cross-env PORT=3001 FAST_REFRESH=true react-scripts start",
+    "start": "cross-env PORT=3001 react-scripts start",
     "test": "react-scripts test --env=jsdom"
   },
   "version": "0.1.0"

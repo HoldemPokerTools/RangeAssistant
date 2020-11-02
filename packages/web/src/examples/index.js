@@ -1,4 +1,4 @@
-export default [
+const examples = [
   {
     value: 'MTT',
     label: 'MTT',
@@ -95,4 +95,5 @@ export default [
     ]
   }
 ]
+export default examples;
 
