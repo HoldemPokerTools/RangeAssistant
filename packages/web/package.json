@@ -20,7 +20,7 @@
     "nanoid": "^3.1.16",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "4.0.0",
     "ua-parser-js": "^0.7.22"
   },
   "description": "Hold'em Poker Tools Range Assistant web app",
