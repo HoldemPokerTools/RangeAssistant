@@ -59,7 +59,7 @@
     "react": "^17.0.1",
     "react-dom": "^16.14.0",
     "react-scripts": "4.0.0",
-    "react-dropzone": "^11.2.3"
+    "react-dropzone": "^11.2.4"
   },
   "description": "Hold'em Poker Tools Range Assistant desktop app",
   "devDependencies": {
