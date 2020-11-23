@@ -64,7 +64,7 @@
   "description": "Hold'em Poker Tools Range Assistant desktop app",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.1.2",
+    "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.2.2",
     "concurrently": "^5.2.0",
     "copyfiles": "^2.4.0",
