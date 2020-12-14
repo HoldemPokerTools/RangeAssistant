@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@holdem-poker-tools/hand-matrix": "^0.1.0",
-    "antd": "^4.9.1",
+    "antd": "^4.9.3",
     "electron-is-dev": "^1.2.0",
     "electron-updater": "^4.3.5",
     "pouchdb": "^7.2.2",

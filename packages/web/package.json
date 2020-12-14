@@ -15,7 +15,7 @@
   "dependencies": {
     "@holdem-poker-tools/hand-matrix": "^0.1.0",
     "ajv": "^6.12.6",
-    "antd": "^4.9.1",
+    "antd": "^4.9.3",
     "js-file-download": "^0.4.12",
     "nanoid": "^3.1.20",
     "react": "^17.0.1",
