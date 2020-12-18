@@ -142,8 +142,9 @@ const setMenu = () => {
 };
 
 const handleNavigate = (event, url) => {
-  if (!isDev || url.startsWith(PROD_URL)) event.preventDefault();
-  if (url.startsWith(PROD_URL)) {
+  let allowedUrls = [PROD_URL];
+  if (!isDev || allowedUrls.includes(url)) event.preventDefault();
+  if (allowedUrls.includes(url)) {
     shell.openExternal(BUILDER_URL);
   }
 };
