@@ -3900,7 +3900,7 @@ copy-descriptor@^0.1.0:
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
-copy-to-clipboard@^3.2.0:
+copy-to-clipboard@^3.2.0, copy-to-clipboard@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.3.1.tgz#115aa1a9998ffab6196f93076ad6da3b913662ae"
   integrity sha512-i13qo6kIHTTpCm8/Wup+0b1mVWETvu2kIMzKoK8FpkLkFxlt0znUAHcMzox+T8sPlqtZXq3CulEjQHsYiGFJUw==
@@ -9957,6 +9957,11 @@ pouchdb@^7.2.2:
     through2 "3.0.2"
     uuid "8.1.0"
     vuvuzela "1.0.3"
+
+prange@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/prange/-/prange-0.2.3.tgz#861e2635562e5f90b2d0f54cd3807318d5dbb532"
+  integrity sha1-hh4mNVYuX5Cy0PVM04BzGNXbtTI=
 
 prelude-ls@^1.2.1:
   version "1.2.1"
