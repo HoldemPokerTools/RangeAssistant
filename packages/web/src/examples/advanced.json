@@ -2,28 +2,34 @@
   "_id": "EgDVXxCQ73RTDS4zIoMHw",
   "actions": [
     {
-      "name": "Fold",
-      "color": "#d3d3d3"
+        "name": "Fold",
+        "color": "#d3d3d3",
+        "inRange": false
     },
     {
         "name": "Raise/Call/Jam vs 3 Bet",
-        "color": "#06ce0c"
+        "color": "#06ce0c",
+       "inRange": true
     },
     {
         "name": "Call vs 3 Bet",
-        "color": "#d9e90e"
+        "color": "#d9e90e",
+       "inRange": true
     },
     {
         "name": "Fold vs 3 Bet",
-        "color": "#fd6363"
+        "color": "#fd6363",
+        "inRange": true
     },
     {
         "name": "Call 3 Bet vs BTN",
-        "color": "#1b9af7"
+        "color": "#1b9af7",
+       "inRange": true
     },
     {
         "name": "4 Bet vs 3 Bet",
-        "color": "#bb63fd"
+        "color": "#bb63fd",
+        "inRange": true
     }
   ],
   "author": "Hold'em Poker Tools",

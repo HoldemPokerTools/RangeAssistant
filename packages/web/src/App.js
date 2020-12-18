@@ -9,7 +9,7 @@ import {
   message,
   Typography,
   Alert,
-  Cascader
+  Select
 } from "antd";
 import { DownloadOutlined, GithubOutlined, AppleFilled, WindowsFilled } from "@ant-design/icons";
 import { nanoid } from "nanoid";
@@ -20,6 +20,7 @@ import { validateActions, validateCombos } from "./ranges/validator";
 import examples from "./examples";
 import "./App.css";
 const { Text, Link } = Typography;
+const { Option } = Select;
 
 const parser = new UAParser();
 const { Header, Footer, Content } = Layout;
@@ -91,21 +92,14 @@ function App() {
     setVisible(false);
   };
 
-  const loadExample = (examplePath) => {
-    if (examplePath.length) {
-      const data = examplePath.reduce((acc, next) => {
-        return acc.children.find(i => i.value === next);
-      }, {children: examples}).data;
+  const loadExample = (exampleName) => {
+    if (exampleName.length) {
+      const data = examples.find(i => i.value === exampleName).data;
       setInit({
         actions: data.actions,
         range: data.combos
       });
     }
-  }
-
-  const filter = (inputValue, path) => {
-    const searchParts = inputValue.split(" ");
-    return searchParts.every(part => path.some(option => option.label.toLowerCase().indexOf(part.toLowerCase()) > -1));
   }
 
   return (
@@ -123,7 +117,15 @@ function App() {
         </div>
         <div className="spacer"></div>
         <Space>
-          <Cascader style={{width: 275}} showSearch={{matchInputWidth: false, filter}} options={examples} onChange={loadExample} placeholder="Choose an Example..." />
+          <Select
+            style={{width: 275}}
+            placeholder="Choose an example"
+            onSelect={loadExample}
+          >
+            {
+              examples.map(i => <Option value={i.value}>{i.label}</Option>)
+            }
+          </Select>
           {os && (
             <Button href={`https://github.com/HoldemPokerTools/RangeAssistant/releases/latest/download/Range-Assistant.${getOSAppExtensionIcon(os)}`} target="_blank">
               Download Range Assistant for {getOSIcon(os)} {os}

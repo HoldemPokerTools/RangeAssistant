@@ -3,19 +3,23 @@
   "actions": [
     {
       "name": "Fold",
-      "color": "#d3d3d3"
+      "color": "#d3d3d3",
+      "inRange": false
     },
     {
         "name": "Raise/Call/Jam vs 3 Bet",
-        "color": "#06ce0c"
+        "color": "#06ce0c",
+        "inRange": true
     },
     {
         "name": "Call vs 3 Bet",
-        "color": "#d9e90e"
+        "color": "#d9e90e",
+       "inRange": true
     },
     {
         "name": "Fold vs 3 Bet",
-        "color": "#fd6363"
+        "color": "#fd6363",
+        "inRange": true
     }
   ],
   "author": "Hold'em Poker Tools",
