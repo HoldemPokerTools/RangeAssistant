@@ -123,7 +123,7 @@ function App() {
             onSelect={loadExample}
           >
             {
-              examples.map(i => <Option value={i.value}>{i.label}</Option>)
+              examples.map(i => <Option key={i.value} value={i.value}>{i.label}</Option>)
             }
           </Select>
           {os && (

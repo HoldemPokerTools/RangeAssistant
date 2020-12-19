@@ -1242,10 +1242,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@holdem-poker-tools/hand-matrix@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@holdem-poker-tools/hand-matrix/-/hand-matrix-0.1.0.tgz#1e9947c02744c69bb788cd6ff526e2075af94b8b"
-  integrity sha512-Rc7nvsPe6K1nS6xMC11dxIdT7YSx0LKrxXqK6BXJZymiUzaB1YRqfGqsu0qELiH5XzCAa8w3V/0nTwiV6z8feQ==
+"@holdem-poker-tools/hand-matrix@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@holdem-poker-tools/hand-matrix/-/hand-matrix-0.1.2.tgz#638e348d17f80c4d4abdeb198c7234bfd51ef74d"
+  integrity sha512-N/KloMvv4QpHAtDkFam9+yTmX+tX5DpPvWXq7epnuKwaI0FwylIpoxh+183aTxDprhxYFXkxBWI/enK9zTNSaQ==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
