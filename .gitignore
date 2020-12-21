@@ -44,3 +44,5 @@ python/
 packages/equity-calculator/*
 node_modules/
 archive
+packages/web/.eslintcache
+packages/desktop/.eslintcache

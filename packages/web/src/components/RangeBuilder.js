@@ -188,9 +188,9 @@ function RangeBuilder({ onChange, init }) {
           <Title level={4}>Combos</Title>
           <HandMatrix
             colorize={false}
-            onMouseDown={handleSelect}
-            onMouseUp={() => setCopying(false)}
-            onMouseEnter={handleMouseEnter}
+            onPointerDown={handleSelect}
+            onPointerUp={() => setCopying(false)}
+            onPointerEnter={handleMouseEnter}
             comboStyle={(combo) => {
               let bgString;
               if (!range[combo]) bgString = actions[0].color;
