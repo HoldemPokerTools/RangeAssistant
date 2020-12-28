@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Typography,
@@ -12,18 +12,19 @@ import {
   Switch,
   Select,
   Tooltip,
-  InputNumber
+  InputNumber, Divider
 } from "antd";
-import { EditOutlined, DeleteOutlined, PlusCircleOutlined, DownloadOutlined } from "@ant-design/icons"
+import {EditOutlined, DeleteOutlined, PlusCircleOutlined, DownloadOutlined, FileAddFilled} from "@ant-design/icons"
 import {
   Redirect,
   useHistory
 } from "react-router-dom";
 import { HandMatrix } from "@holdem-poker-tools/hand-matrix";
 import Spin from "../components/Spin";
+import Dropzone from "../components/Dropzone";
 import { createRange, deleteRange, getRanges, registerListener } from "../data";
 import colors from "../utils/colors";
-import { actionComboStyler, frequencyComboStyler, downloadRange } from "../utils/range";
+import {actionComboStyler, frequencyComboStyler, downloadRange, readFile, validate} from "../utils/range";
 import { getRandomInt } from "../utils/numbers";
 import "./ViewRanges.css";
 const { Title, Paragraph, Text } = Typography;
@@ -33,20 +34,11 @@ const ViewRanges = () => {
   const history = useHistory();
   const [ranges, setRanges] = useState([]);
   const [frequencyMode, setFrequencyMode] = useState(false);
-  const [rng, setRng] = useState(5);
   const [refreshRate, setRefreshRate] = useState(5);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(undefined);
   const [visible, setVisible] = useState(false);
   const [tags, setTags] = useState([]);
-
-  useEffect(() => {
-    setRng(getRandomInt())
-    const interval = setInterval(() => {
-      setRng(getRandomInt());
-    },refreshRate * 1000);
-    return () => clearInterval(interval);
-  }, [refreshRate, setRng])
 
   useEffect(() => {
     setLoading(true);
@@ -66,9 +58,7 @@ const ViewRanges = () => {
           return e.filter(i => i._id !== change.id);
         }
         const idx = e.findIndex(i => i._id === change.id);
-        if (idx !== -1) {
-          return Object.assign([], e, {[idx]: change.doc});
-        }
+        return Object.assign([], e, {[idx !== -1 ? idx : e.length]: change.doc})
       })
     });
 
@@ -79,15 +69,37 @@ const ViewRanges = () => {
     return <Redirect to="/notfound" state={{}}/>
   }
 
-  const createNewRange = ({title, author}) => {
-    createRange({title, author, tags: [], combos: {}, actions: [
-        {name: "Fold", color: colors[0].value, inRange: false},
-        {name: "Call", color: colors[1].value, inRange: true},
-        {name: "Raise", color: colors[2].value, inRange: true},
-      ]})
-      .then((doc) => {
-        history.push(`/range/${doc._id}`);
-      })
+  const parseRange = (file) => {
+    return readFile(file)
+      .then(JSON.parse)
+      .then(range => {
+        if (!validate(range)) throw new Error("Invalid range");
+        return range;
+      });
+  }
+
+  const handleImport = (files) => {
+    return Promise.all(files.map(parseRange))
+      .then(ranges => ranges.forEach(createNewRange))
+      .then(() => message.success("Import successful!"))
+      .catch(err => {
+        console.log(err);
+        message.error("One or more of your range files are invalid!");
+      });
+    ;
+  }
+
+  const handleSubmit = (data) => {
+    return createNewRange(data)
+      .then((doc) => history.push(`/range/${doc._id}`));
+  }
+
+  const createNewRange = ({title, author, tags = [], combos = {}, actions = [
+    {name: "Fold", color: colors[0].value, inRange: false},
+    {name: "Call", color: colors[1].value, inRange: true},
+    {name: "Raise", color: colors[2].value, inRange: true},
+  ]}) => {
+    return createRange({title, author, tags, combos, actions})
       .catch(err => {
         console.error(err);
         message.error("Could not create range!");
@@ -109,7 +121,7 @@ const ViewRanges = () => {
         </div>
         <Space>
           <span>Display Frequencies: <Switch checked={frequencyMode} onChange={setFrequencyMode}/></span>
-          {!frequencyMode && <span>RNG refresh rate: <InputNumber formatter={val => `${val} secs`} precision={0} onChange={setRefreshRate} value={refreshRate}/></span>}
+          {!frequencyMode && <span>RNG refresh rate: <InputNumber min={1} formatter={val => `${val} secs`} precision={0} onChange={setRefreshRate} value={refreshRate}/></span>}
         </Space>
         {
           ranges.length === 0
@@ -120,28 +132,35 @@ const ViewRanges = () => {
             : <Row gutter={[10, 10]}>
               {ranges.filter(range => tags.length === 0 || tags.every(t => range.tags.includes(t))).map((range) => {
                 return <Col key={range._id} xs={12} sm={12} md={6} lg={6} xl={4}>
-                  <RangeTile rng={rng} range={range} frequencyMode={frequencyMode}/>
+                  <RangeTile refreshRate={refreshRate} range={range} frequencyMode={frequencyMode}/>
                 </Col>
               })}
             </Row>
         }
       </Space> }
-      <NewRangeFormModal visible={visible} onSubmit={createNewRange} onCancel={() => setVisible(false)}/>
+      <NewRangeFormModal onImport={handleImport} visible={visible} onSubmit={handleSubmit} onCancel={() => setVisible(false)}/>
     </div>
   )
 }
 
-const RangeTile = ({ range, frequencyMode, rng }) => {
+const RangeTile = ({ range, frequencyMode, refreshRate }) => {
   const history = useHistory();
+  const [rng, setRng] = useState(5);
 
-  const getStyler = useCallback(() => {
-    return frequencyMode
-      ? actionComboStyler(range.combos, range.actions)
-      : frequencyComboStyler(range.combos, range.actions)
-  }, [range, frequencyMode, rng])
+  useEffect(() => {
+    setRng(getRandomInt());
+    const interval = setInterval(() => {
+      setRng(getRandomInt());
+    },refreshRate * 1000);
+    return () => clearInterval(interval);
+  }, [refreshRate, setRng])
+
+  const styler = frequencyMode
+    ? actionComboStyler(range.combos, range.actions)
+    : frequencyComboStyler(range.combos, range.actions);
 
   return (<div>
-    <HandMatrix showText={false} comboStyle={getStyler()} />
+    <HandMatrix showText={false} comboStyle={styler} />
     <Text strong>{range.title}</Text>
     <br/>
     <Text type="secondary">by {range.author}</Text>
@@ -163,7 +182,7 @@ const RangeTile = ({ range, frequencyMode, rng }) => {
   </div>)
 }
 
-const NewRangeFormModal = ({ visible, onSubmit, onCancel }) => {
+const NewRangeFormModal = ({ visible, onSubmit, onImport, onCancel }) => {
   const [form] = Form.useForm();
 
   const handleOk = () => {
@@ -181,13 +200,21 @@ const NewRangeFormModal = ({ visible, onSubmit, onCancel }) => {
 
   return (
     <Modal
-      title="New Range"
+      title="Add Range"
       visible={visible}
       okText="Create"
       onOk={handleOk}
       onCancel={handleCancel}
     >
+      <Dropzone onDropFiles={onImport}>
+        <div>
+          <FileAddFilled style={{fontSize: 52}}/>
+          <h3>Drop your range file(s) here</h3>
+        </div>
+      </Dropzone>
+      <Divider/>
       <Form layout="vertical" form={form}>
+        <Title level={5} style={{textAlign: "center"}}>Or create a range manually</Title>
         <Form.Item
           label="Range Name"
           required

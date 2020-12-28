@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "_id": {
+      "maxLength": 48,
+      "minLength": 16,
+      "type": "string"
+    },
+    "tags": {
+      "items": {
+        "type": "string",
+        "maxLength": 32,
+        "minLength": 1
+      },
+      "maxItems": 25,
+      "minItems": 0,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "actions": {
+      "$id": "actions",
+      "items": {
+        "properties": {
+          "color": {
+            "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 32,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["name", "color"],
+        "type": "object"
+      },
+      "maxItems": 25,
+      "minItems": 2,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "author": {
+      "maxLength": 48,
+      "minLength": 1,
+      "type": "string"
+    },
+    "combos": {
+      "$id": "combos",
+      "additionalProperties": false,
+      "maxProperties": 169,
+      "minProperties": 0,
+      "patternProperties": {
+        "^([AKQJT2-9]{2})([os?])?$": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      }
+    },
+    "title": {
+      "maxLength": 80,
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": ["_id", "title", "actions", "combos", "author", "tags"],
+  "title": "Range",
+  "type": "object"
+}

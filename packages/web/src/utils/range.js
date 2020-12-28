@@ -1,6 +1,14 @@
 import {reverse} from "prange";
 import {getRandomInt} from "./numbers";
 import fileDownload from "js-file-download";
+import Ajv from "ajv";
+import schema from "../data/range.schema.json";
+
+const ajv = new Ajv();
+ajv.addSchema(schema);
+export const validateActions = ajv.getSchema("actions");
+export const validateCombos = ajv.getSchema("combos");
+export const validate = ajv.compile(schema);
 
 export const rangeStringFormatters = {
   gtoplus: {label: "GTO+", getWeightedRangeString: (rangeString, weight) => `[${weight}]${rangeString}[/${weight}]`}
@@ -78,6 +86,17 @@ export const frequencyComboStyler = (combos, actions) => (combo) => {
 export const downloadRange = (data) => {
   fileDownload(JSON.stringify(data), `${data.title.toLowerCase().replace(/\s+/g, "-")}.range`, "application/json");
 };
+
+export const readFile = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = res => {
+      resolve(res.target.result);
+    };
+    reader.onerror = err => reject(err);
+    reader.readAsText(file);
+  });
+}
 
 export const defaultTags = [
   "UTG", "UTG+1", "UTG+2", "LJ", "HJ", "CO", "BTN", "SB", "BB",

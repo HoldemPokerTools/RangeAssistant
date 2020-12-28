@@ -17,11 +17,10 @@ import Spin from "../components/Spin";
 import { DeleteFilled, CopyOutlined, FormatPainterOutlined, TableOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { HandMatrix } from "@holdem-poker-tools/hand-matrix";
 import { useParams, Redirect } from "react-router-dom";
-import {actionComboStyler, combosToRangeString, defaultTags, rangeStringFormatters} from "../utils/range";
+import { actionComboStyler, combosToRangeString, defaultTags, rangeStringFormatters, validate } from "../utils/range";
 import { filterUndefinedKeys } from "../utils/objects";
 import colors from "../utils/colors";
 import { getRange, updateRange } from "../data";
-import { validate } from "../ranges/validator";
 const { Title, Text } = Typography;
 const { Option } = Select;
 
