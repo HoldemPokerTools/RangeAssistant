@@ -46,6 +46,7 @@
     },
     "combos": {
       "$id": "combos",
+      "type": "object",
       "additionalProperties": false,
       "maxProperties": 169,
       "minProperties": 0,

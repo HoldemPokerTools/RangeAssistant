@@ -4,7 +4,7 @@ import fileDownload from "js-file-download";
 import Ajv from "ajv";
 import schema from "../data/range.schema.json";
 
-const ajv = new Ajv();
+const ajv = new Ajv({strict: false});
 ajv.addSchema(schema);
 export const validateActions = ajv.getSchema("actions");
 export const validateCombos = ajv.getSchema("combos");

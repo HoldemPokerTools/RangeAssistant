@@ -79,7 +79,7 @@ const createAppWindow = async () => {
 }
 
 const validateRange = (range) => {
-  const ajv = new Ajv();
+  const ajv = new Ajv.default({strict: false});
   if (!ajv.validate(require("./range.schema.json"), range))
     throw new Error(`Invalid range: ${ajv.errorsText()}`);
 };

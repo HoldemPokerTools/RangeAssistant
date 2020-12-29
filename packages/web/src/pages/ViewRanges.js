@@ -151,7 +151,7 @@ const ViewRanges = () => {
 
 const RangeTile = ({ range, frequencyMode, refreshRate }) => {
   const history = useHistory();
-  const [rng, setRng] = useState(5);
+  const [rng, setRng] = useState(15);
   let {title, author, actions, combos, tags, _id} = range;
 
   useEffect(() => {
