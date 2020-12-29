@@ -14,7 +14,7 @@ import {
   Tooltip,
   InputNumber, Divider
 } from "antd";
-import {EditOutlined, DeleteOutlined, PlusCircleOutlined, DownloadOutlined, FileAddFilled} from "@ant-design/icons"
+import { EditOutlined, DeleteOutlined, PlusCircleOutlined, DownloadOutlined, FileAddFilled, CopyOutlined } from "@ant-design/icons"
 import {
   Redirect,
   useHistory
@@ -151,6 +151,7 @@ const ViewRanges = () => {
 const RangeTile = ({ range, frequencyMode, refreshRate }) => {
   const history = useHistory();
   const [rng, setRng] = useState(5);
+  let {title, author, actions, combos, tags, _id} = range;
 
   useEffect(() => {
     setRng(getRandomInt());
@@ -161,30 +162,33 @@ const RangeTile = ({ range, frequencyMode, refreshRate }) => {
   }, [refreshRate, setRng])
 
   const styler = frequencyMode
-    ? actionComboStyler(range.combos, range.actions)
-    : frequencyComboStyler(range.combos, range.actions);
+    ? actionComboStyler(combos, actions)
+    : frequencyComboStyler(combos, actions);
 
   return (<div>
-    <Text strong>{range.title} </Text>
-    <Text type="secondary">by {range.author}</Text>
+    <Text strong>{title} </Text>
+    <Text type="secondary">by {author}</Text>
     <HandMatrix showText={true} comboStyle={combo => ({
       ...styler(combo),
       fontSize: "0.6rem"
     })} />
     <div style={{display: "flex"}}>
       <Tooltip title="Edit Range" placement="bottomLeft">
-        <Button onClick={() => history.push(`range/${range._id}`)} icon={<EditOutlined />} size="small"/>
+        <Button onClick={() => history.push(`range/${_id}`)} icon={<EditOutlined />} size="small"/>
+      </Tooltip>
+      <Tooltip title="Duplicate Range" placement="bottom">
+        <Button onClick={() => createRange({title, author, actions, combos, tags})} icon={<CopyOutlined />} size="small"/>
       </Tooltip>
       <Tooltip title="Download Range" placement="bottom">
         <Button onClick={() => downloadRange(range)} icon={<DownloadOutlined />} size="small"/>
       </Tooltip>
       <div className="spacer"/>
       <Tooltip title="Delete Range" placement="bottomRight">
-        <Button type="primary" onClick={() => deleteRange(range._id)} icon={<DeleteOutlined />} size="small"/>
+        <Button type="primary" onClick={() => deleteRange(_id)} icon={<DeleteOutlined />} size="small"/>
       </Tooltip>
     </div>
     <div className="tag-container">
-      {range.tags.map(tag => <div className="tag" key={tag}>{tag}</div>)}
+      {tags.map(tag => <div className="tag" key={tag}>{tag}</div>)}
     </div>
   </div>)
 }
