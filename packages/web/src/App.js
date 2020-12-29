@@ -113,7 +113,7 @@ const SiteFooter = () => (
     <Text>Hold'em Poker Tools: Range Assistant ©2020</Text>
     <br />
     <Text>
-      Hold'em Poker Tools projects are free for everyone to use. Show you support on Buy Me
+      Hold'em Poker Tools projects are free for everyone to use. Show your support on Buy Me
       a Coffee!
     </Text>
     <br />

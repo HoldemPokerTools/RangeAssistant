@@ -91,7 +91,10 @@ const ViewRanges = () => {
 
   const handleSubmit = (data) => {
     return createNewRange(data)
-      .then((doc) => history.push(`/range/${doc._id}`));
+      .then((doc) => {
+        setVisible(false);
+        history.push(`/range/${doc._id}`);
+      });
   }
 
   const createNewRange = ({title, author, tags = [], combos = {}, actions = [
@@ -106,6 +109,8 @@ const ViewRanges = () => {
       })
     ;
   }
+
+  const filteredRanges = ranges.filter(range => tags.length === 0 || tags.every(t => range.tags.includes(t)));
 
   return (
     <div>
@@ -124,14 +129,14 @@ const ViewRanges = () => {
           {!frequencyMode && <span>RNG refresh rate: <InputNumber min={1} formatter={val => `${val} secs`} precision={0} onChange={setRefreshRate} value={refreshRate}/></span>}
         </Space>
         {
-          ranges.length === 0
+          filteredRanges.length === 0
             ? <div style={{textAlign: "center"}}>
               <Title level={3}>No Ranges Found</Title>
-              <Paragraph>You don't have any ranges yet!</Paragraph>
+              {ranges.length === 0 && <Paragraph>You don't have any ranges yet!</Paragraph>}
             </div>
             : <Row gutter={[10, 10]}>
-              {ranges.filter(range => tags.length === 0 || tags.every(t => range.tags.includes(t))).map((range) => {
-                return <Col key={range._id} xs={12} sm={12} md={6} lg={6} xl={4}>
+              {filteredRanges.map((range) => {
+                return <Col key={range._id} xs={24} sm={12} md={8} lg={8} xl={6} xxl={4}>
                   <RangeTile refreshRate={refreshRate} range={range} frequencyMode={frequencyMode}/>
                 </Col>
               })}
@@ -160,10 +165,12 @@ const RangeTile = ({ range, frequencyMode, refreshRate }) => {
     : frequencyComboStyler(range.combos, range.actions);
 
   return (<div>
-    <HandMatrix showText={false} comboStyle={styler} />
-    <Text strong>{range.title}</Text>
-    <br/>
+    <Text strong>{range.title} </Text>
     <Text type="secondary">by {range.author}</Text>
+    <HandMatrix showText={true} comboStyle={combo => ({
+      ...styler(combo),
+      fontSize: "0.6rem"
+    })} />
     <div style={{display: "flex"}}>
       <Tooltip title="Edit Range" placement="bottomLeft">
         <Button onClick={() => history.push(`range/${range._id}`)} icon={<EditOutlined />} size="small"/>

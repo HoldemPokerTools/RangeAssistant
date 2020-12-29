@@ -12,7 +12,6 @@
         "maxLength": 32,
         "minLength": 1
       },
-      "maxItems": 25,
       "minItems": 0,
       "type": "array",
       "uniqueItems": true
@@ -40,7 +39,6 @@
       "uniqueItems": true
     },
     "author": {
-      "maxLength": 48,
       "minLength": 1,
       "type": "string"
     },
@@ -60,7 +58,6 @@
       }
     },
     "title": {
-      "maxLength": 80,
       "minLength": 1,
       "type": "string"
     }

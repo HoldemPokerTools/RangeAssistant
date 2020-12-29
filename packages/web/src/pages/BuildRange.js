@@ -198,7 +198,11 @@ function BuildRange() {
                 onPointerDown={handleSelect}
                 onPointerUp={() => setCopying(false)}
                 onPointerEnter={handleMouseEnter}
-                comboStyle={actionComboStyler(range.combos, range.actions)}
+                comboStyle={combo => ({
+                  ...actionComboStyler(range.combos, range.actions)(combo),
+                  boxShadow:
+                    combo === selected ? "inset 0px 0px 0px 5px #fff" : "none",
+                })}
               />
               <Text><strong>Pro Tip:</strong> You can "drag" a combo to copy it's action weights to another combo.</Text>
             </Space>
