@@ -98,5 +98,5 @@
     "start": "concurrently --kill-others \"yarn react-start\" \"wait-on http://localhost:3000 && yarn electron-start\"",
     "test": "react-scripts test --env=jsdom"
   },
-  "version": "0.3.0"
+  "version": "0.3.1"
 }
