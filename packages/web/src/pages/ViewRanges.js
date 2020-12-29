@@ -35,7 +35,7 @@ const ViewRanges = () => {
   const history = useHistory();
   const [ranges, setRanges] = useState([]);
   const [frequencyMode, setFrequencyMode] = useState(false);
-  const [refreshRate, setRefreshRate] = useState(5);
+  const [refreshRate, setRefreshRate] = useState(15);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(undefined);
   const [visible, setVisible] = useState(false);
@@ -151,7 +151,7 @@ const ViewRanges = () => {
 
 const RangeTile = ({ range, frequencyMode, refreshRate }) => {
   const history = useHistory();
-  const [rng, setRng] = useState(15);
+  const [rng, setRng] = useState(0);
   let {title, author, actions, combos, tags, _id} = range;
 
   useEffect(() => {
