@@ -32,7 +32,7 @@ export const actionComboStyler = (combos, actions) => combo => {
   let bgString;
   if (!combos[combo]) bgString = actions[0].color;
   else {
-    bgString = "linear-gradient(to top";
+    bgString = "linear-gradient(to left";
     const total = combos[combo].reduce((a, b) => a + b, 0);
     const percentages = combos[combo].map((c) => (c / total) * 100);
     let sum = 0;
