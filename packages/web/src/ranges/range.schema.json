@@ -2,9 +2,20 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "properties": {
     "_id": {
-      "maxLength": 32,
+      "maxLength": 48,
       "minLength": 16,
       "type": "string"
+    },
+    "tags": {
+      "items": {
+        "type": "string",
+        "maxLength": 32,
+        "minLength": 1
+      },
+      "maxItems": 25,
+      "minItems": 0,
+      "type": "array",
+      "uniqueItems": true
     },
     "actions": {
       "$id": "actions",
@@ -29,7 +40,7 @@
       "uniqueItems": true
     },
     "author": {
-      "maxLength": 24,
+      "maxLength": 48,
       "minLength": 1,
       "type": "string"
     },
@@ -37,7 +48,7 @@
       "$id": "combos",
       "additionalProperties": false,
       "maxProperties": 169,
-      "minProperties": 1,
+      "minProperties": 0,
       "patternProperties": {
         "^([AKQJT2-9]{2})([os?])?$": {
           "items": {
@@ -54,7 +65,7 @@
       "type": "string"
     }
   },
-  "required": ["_id", "title", "actions", "combos"],
+  "required": ["_id", "title", "actions", "combos", "author", "tags"],
   "title": "Range",
   "type": "object"
 }

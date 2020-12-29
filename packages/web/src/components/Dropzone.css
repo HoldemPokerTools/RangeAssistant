@@ -1,0 +1,12 @@
+.drop-overlay {
+    background: rgba(236, 236, 236, 0.75);
+    border: 3px dashed #cfcfcf;
+    padding: 15px;
+    z-index: 2;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.drop-overlay.dropping {
+    background: rgba(202, 202, 202, 0.75);
+}

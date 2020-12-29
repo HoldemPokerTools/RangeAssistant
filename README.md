@@ -27,20 +27,22 @@ the desktop app.
 
 ## Key Features
 
+- Create complex, balanced preflop ranges with customisable actions
+- Tag ranges for quick search
+- Simple interface with drag-to-copy support
+- RNG based action selection for a given combo
+- Store virtually ranges for any preflop situation or opponent type
+- Export ranges to share with the poker community
+- Available on Web, OS X and Windows
+
+### Web
+<img src="https://user-images.githubusercontent.com/42975160/103291522-d717d800-49e3-11eb-84de-bd8e449c8c74.png" alt="Range Assistant Web" width="350">
+
+### Desktop
 <p float="left">
   <img src="https://user-images.githubusercontent.com/42975160/92992469-1a0c7900-f4e3-11ea-844b-5241be5b4daf.png" alt="Range Assistant OSX" width="300">
   <img src="https://user-images.githubusercontent.com/42975160/96449101-42874180-120c-11eb-8f5d-c415bd2049af.png" alt="Range Assistant Windows" width="250">
 </p>
-
-- Create complex, balanced preflop ranges with up to 12
-  customisable actions
-- Simple interface with drag-to-copy support
-- RNG based action selection for a given combo
-- Store virtually unlimited ranges for any preflop situation
-  or opponent type
-- Save and export ranges to share with the poker community
-- 150+ free downloadable example charts for tournament players
-- Available on OS X and Windows
 
 ## Credits
 
