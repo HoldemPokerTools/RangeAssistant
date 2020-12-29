@@ -84,6 +84,7 @@ export const frequencyComboStyler = (combos, actions) => (combo) => {
 };
 
 export const downloadRange = (data) => {
+  delete data._rev;
   fileDownload(JSON.stringify(data), `${data.title.toLowerCase().replace(/\s+/g, "-")}.range`, "application/json");
 };
 
