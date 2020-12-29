@@ -1,3 +1,4 @@
+/*eslint no-unused-vars: ["warn", { "varsIgnorePattern": "rng" }]*/
 import React, { useState, useEffect } from "react";
 import {
   Button,
