@@ -26,6 +26,7 @@ import { createRange, deleteRange, getRanges, registerListener } from "../data";
 import colors from "../utils/colors";
 import {actionComboStyler, frequencyComboStyler, downloadRange, readFile, validate} from "../utils/range";
 import { getRandomInt } from "../utils/numbers";
+import examples from "../ranges/index";
 import "./ViewRanges.css";
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
@@ -139,9 +140,9 @@ const ViewRanges = () => {
         </div>
         <Space>
           <span>Display Frequencies: <Switch checked={frequencyMode} onChange={setFrequencyMode}/></span>
-          {!frequencyMode && <span>RNG refresh rate: <InputNumber min={1} formatter={val => `${val} secs`} precision={0} onChange={setRefreshRate} value={refreshRate}/></span>}
-          {<span>RNG: {rng}</span>}
-          {<RedoOutlined onClick={refreshRng}/>}
+          <span>RNG refresh rate: <InputNumber min={1} formatter={val => `${val} secs`} precision={0} onChange={setRefreshRate} value={refreshRate}/></span>
+          <span>RNG: {rng}</span>
+          <Tooltip title="Refresh RNG Now"><RedoOutlined onClick={refreshRng}/></Tooltip>
         </Space>
         {
           filteredRanges.length === 0
@@ -173,11 +174,11 @@ const RangeTile = ({ range, frequencyMode }) => {
 
   return (<div>
     <Text strong>{title} </Text>
-    <Text type="secondary">by {author}</Text>
     <HandMatrix showText={true} comboStyle={combo => ({
       ...styler(combo),
       fontSize: "0.6rem"
     })} />
+    <Text type="secondary">by {author}</Text>
     <div style={{display: "flex"}}>
       <Tooltip title="Edit Range" placement="bottomLeft">
         <Button onClick={() => history.push(`range/${_id}`)} icon={<EditOutlined />} size="small"/>
@@ -205,7 +206,21 @@ const NewRangeFormModal = ({ visible, onSubmit, onImport, onCancel }) => {
   const handleOk = () => {
     form
       .validateFields()
-      .then(onSubmit)
+      .then(data => {
+        let {template, ...range } = data;
+        switch (template) {
+          case "rfi":
+            Object.assign(range, examples.rfi);
+            break;
+          case "vsbet":
+            Object.assign(range, examples.vsbet);
+            break;
+          default:
+            console.debug("Creating range from scratch");
+            break;
+        }
+        return onSubmit(range);
+      })
       .then(() => form.resetFields())
       .catch(console.debug)
   }
@@ -230,7 +245,7 @@ const NewRangeFormModal = ({ visible, onSubmit, onImport, onCancel }) => {
         </div>
       </Dropzone>
       <Divider/>
-      <Form layout="vertical" form={form}>
+      <Form initialValues={{template: "rfi"}} layout="vertical" form={form}>
         <Title level={5} style={{textAlign: "center"}}>Or create a range manually</Title>
         <Form.Item
           label="Range Name"
@@ -261,6 +276,17 @@ const NewRangeFormModal = ({ visible, onSubmit, onImport, onCancel }) => {
           ]}
         >
           <Input placeholder="Your Name" />
+        </Form.Item>
+        <Form.Item
+          label="Starting Template"
+          required
+          name="template"
+        >
+          <Select placeholder="Choose a template">
+            <Option value="rfi">RFI</Option>
+            <Option value="vsbet">vs bet</Option>
+            <Option value="blank">From scratch</Option>
+          </Select>
         </Form.Item>
       </Form>
     </Modal>

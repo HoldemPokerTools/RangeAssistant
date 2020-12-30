@@ -101,11 +101,12 @@ export const readFile = (file) => {
 }
 
 export const defaultTags = [
-  "UTG", "UTG+1", "UTG+2", "LJ", "HJ", "CO", "BTN", "SB", "BB",
-  "vs UTG", "vs UTG+1", "vs UTG+2", "vs LJ", "vs HJ", "vs CO", "vs BTN", "vs SB", "vs BB",
-  "micro", "low", "medium", "high",
+  "EP", "MP", "UTG", "UTG+1", "UTG+2", "LJ", "HJ", "CO", "BTN", "SB", "BB",
+  "vs EP", "vs MP", "vs UTG", "vs UTG+1", "vs UTG+2", "vs LJ", "vs HJ", "vs CO", "vs BTN", "vs SB", "vs BB",
+  "micro", "low stakes", "medium stakes", "high stakes",
   "100BB", "200BB", "75BB", "50BB", "30BB",
   "RFI", "vs limp", "vs open", "vs 3bet", "vs 4bet", "vs 5bet",
   "vs small bet", "vs medium bet", "vs big bet",
-  "6max", "full ring", "heads up"
+  "6max", "full ring", "heads up",
+  "GTO", "exploitative", "vs nit", "vs TAG", "vs LAG", "vs fish", "vs whale",
 ]
