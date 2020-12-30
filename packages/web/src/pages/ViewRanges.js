@@ -31,6 +31,8 @@ import "./ViewRanges.css";
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
 
+const MIN_REFRESH_RATE = 3;
+
 const ViewRanges = () => {
   const history = useHistory();
   const [ranges, setRanges] = useState([]);
@@ -43,11 +45,13 @@ const ViewRanges = () => {
   const [rng, setRng] = useState(0);
 
   useEffect(() => {
-    refreshRng();
-    const interval = setInterval(() => {
+    if (refreshRate >= MIN_REFRESH_RATE) {
       refreshRng();
-    },refreshRate * 1000);
-    return () => clearInterval(interval);
+      const interval = setInterval(() => {
+        refreshRng();
+      },refreshRate * 1000);
+      return () => clearInterval(interval);
+    }
   }, [refreshRate, setRng]);
 
   useEffect(() => {
@@ -140,9 +144,8 @@ const ViewRanges = () => {
         </div>
         <Space>
           <span>Frequency Mode: <Switch checked={frequencyMode} onChange={setFrequencyMode}/></span>
-          <span>RNG refresh rate: <InputNumber min={1} formatter={val => `${val} secs`} precision={0} onChange={setRefreshRate} value={refreshRate}/></span>
-          <span>RNG: {rng}</span>
-          <Tooltip title="Refresh RNG Now"><RedoOutlined onClick={refreshRng}/></Tooltip>
+          <span>RNG: {rng} <Tooltip title="Refresh RNG Now"><RedoOutlined onClick={refreshRng}/></Tooltip></span>
+          <span>RNG refresh rate: <InputNumber min={MIN_REFRESH_RATE} precision={0} onChange={setRefreshRate} value={refreshRate}/></span>
         </Space>
         {
           filteredRanges.length === 0
