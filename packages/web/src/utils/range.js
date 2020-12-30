@@ -69,18 +69,19 @@ const getAction = (actions) => {
   return idx;
 };
 
-export const frequencyComboStyler = (combos, actions) => (combo) => {
+export const frequencyComboStyler = (combos, actions) => {
   const processedCombos = Object.keys(combos).reduce((acc, current) => {
     return { ...acc, [current]: getAction(combos[current]) };
   }, {})
-  return {
+
+  return (combo) => ({
     backgroundColor: (
       actions.find((a, i) => {
         if (processedCombos[combo]) return i === processedCombos[combo];
         return false;
       }) || actions[0]
     ).color,
-  }
+  })
 };
 
 export const downloadRange = (data) => {

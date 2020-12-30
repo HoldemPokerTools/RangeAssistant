@@ -1,4 +1,3 @@
-/*eslint no-unused-vars: ["warn", { "varsIgnorePattern": "rng" }]*/
 import React, { useState, useEffect } from "react";
 import {
   Button,
@@ -15,7 +14,7 @@ import {
   Tooltip,
   InputNumber, Divider
 } from "antd";
-import { EditOutlined, DeleteOutlined, PlusCircleOutlined, DownloadOutlined, FileAddFilled, CopyOutlined } from "@ant-design/icons"
+import { EditOutlined, DeleteOutlined, PlusCircleOutlined, DownloadOutlined, FileAddFilled, CopyOutlined, RedoOutlined } from "@ant-design/icons"
 import {
   Redirect,
   useHistory
@@ -35,11 +34,20 @@ const ViewRanges = () => {
   const history = useHistory();
   const [ranges, setRanges] = useState([]);
   const [frequencyMode, setFrequencyMode] = useState(false);
-  const [refreshRate, setRefreshRate] = useState(15);
+  const [refreshRate, setRefreshRate] = useState(10);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(undefined);
   const [visible, setVisible] = useState(false);
   const [tags, setTags] = useState([]);
+  const [rng, setRng] = useState(0);
+
+  useEffect(() => {
+    refreshRng();
+    const interval = setInterval(() => {
+      refreshRng();
+    },refreshRate * 1000);
+    return () => clearInterval(interval);
+  }, [refreshRate, setRng]);
 
   useEffect(() => {
     setLoading(true);
@@ -68,6 +76,10 @@ const ViewRanges = () => {
 
   if (error) {
     return <Redirect to="/notfound" state={{}}/>
+  }
+
+  const refreshRng = () => {
+    setRng(getRandomInt());
   }
 
   const parseRange = (file) => {
@@ -128,6 +140,8 @@ const ViewRanges = () => {
         <Space>
           <span>Display Frequencies: <Switch checked={frequencyMode} onChange={setFrequencyMode}/></span>
           {!frequencyMode && <span>RNG refresh rate: <InputNumber min={1} formatter={val => `${val} secs`} precision={0} onChange={setRefreshRate} value={refreshRate}/></span>}
+          {<span>RNG: {rng}</span>}
+          {<RedoOutlined onClick={refreshRng}/>}
         </Space>
         {
           filteredRanges.length === 0
@@ -138,7 +152,7 @@ const ViewRanges = () => {
             : <Row gutter={[10, 10]}>
               {filteredRanges.map((range) => {
                 return <Col key={range._id} xs={24} sm={12} md={8} lg={8} xl={6} xxl={4}>
-                  <RangeTile refreshRate={refreshRate} range={range} frequencyMode={frequencyMode}/>
+                  <RangeTile range={range} frequencyMode={frequencyMode}/>
                 </Col>
               })}
             </Row>
@@ -149,18 +163,9 @@ const ViewRanges = () => {
   )
 }
 
-const RangeTile = ({ range, frequencyMode, refreshRate }) => {
+const RangeTile = ({ range, frequencyMode }) => {
   const history = useHistory();
-  const [rng, setRng] = useState(0);
   let {title, author, actions, combos, tags, _id} = range;
-
-  useEffect(() => {
-    setRng(getRandomInt());
-    const interval = setInterval(() => {
-      setRng(getRandomInt());
-    },refreshRate * 1000);
-    return () => clearInterval(interval);
-  }, [refreshRate, setRng])
 
   const styler = frequencyMode
     ? actionComboStyler(combos, actions)
