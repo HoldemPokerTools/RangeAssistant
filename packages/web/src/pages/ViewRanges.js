@@ -139,7 +139,7 @@ const ViewRanges = () => {
           </Space>
         </div>
         <Space>
-          <span>Display Frequencies: <Switch checked={frequencyMode} onChange={setFrequencyMode}/></span>
+          <span>Frequency Mode: <Switch checked={frequencyMode} onChange={setFrequencyMode}/></span>
           <span>RNG refresh rate: <InputNumber min={1} formatter={val => `${val} secs`} precision={0} onChange={setRefreshRate} value={refreshRate}/></span>
           <span>RNG: {rng}</span>
           <Tooltip title="Refresh RNG Now"><RedoOutlined onClick={refreshRng}/></Tooltip>
