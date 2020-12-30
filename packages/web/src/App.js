@@ -55,34 +55,37 @@ function App() {
       <Router>
         <SiteHeader/>
         <Content className="content">
-          <div className="site-layout-content">
+          <div className="site-layout-content gutter">
             {!localStorage.getItem("showIntro") && (
               <Alert
                 type="info"
                 closable
+                closeText="Hide"
                 afterClose={() => {
                   localStorage.setItem("showIntro", 1);
                 }}
                 showIcon
-                message="First time here?"
+                className="gutter"
                 description={<Text>
-                  Use this web app to construct a new range then save it to use with the Hold'em Poker Tools Range Assistant desktop app.
-                  If you're on desktop, you can download the Range Assistant desktop app using the button above.
+                  Use this web app to construct, save and view preflop ranges. You can download your ranges
+                  to share with others or for use with the Hold'em Poker Tools Range Assistant desktop app.
+                  <Text strong> IMPORTANT: </Text>Your ranges are stored in your browser and will <Text strong>not </Text>
+                  be accessible across devices/different browsers. You should download your ranges to back them up and
+                  import them on different devices.
                 </Text>}
               />
             )}
-              <Switch>
-                <Route exact path="/">
-                  <ViewRanges/>
-                </Route>
-                <Route exact path="/range/:rangeId">
-                  <BuildRange />
-                </Route>
-                <Route path="*">
-                  <NotFound />
-                </Route>
-              </Switch>
-            <div className="gutter" />
+            <Switch>
+              <Route exact path="/">
+                <ViewRanges/>
+              </Route>
+              <Route exact path="/range/:rangeId">
+                <BuildRange />
+              </Route>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
           </div>
         </Content>
         <SiteFooter/>
