@@ -12,7 +12,7 @@ import {
   Typography,
   Alert,
 } from "antd";
-import { GithubOutlined, AppleFilled, WindowsFilled } from "@ant-design/icons";
+import { AppleFilled, WindowsFilled } from "@ant-design/icons";
 import { UAParser } from "ua-parser-js";
 import BuildRange from "./pages/BuildRange";
 import NotFound from "./pages/NotFound";
@@ -133,13 +133,6 @@ const SiteFooter = () => (
           Download Range Assistant for {getOSIcon(os)} {os}
         </Button>
       )}
-      <a
-        href="https://github.com/HoldemTools/RangeAssistant"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <GithubOutlined /> View on GitHub
-      </a>
     </Space>
   </Footer>
 )
