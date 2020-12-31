@@ -63,7 +63,7 @@ function BuildRange() {
       }).map(([combo, actionWeights]) => {
         const totalWeights = actionWeights.reduce((acc, next) => acc + next,0);
         const inRangeTotal = actionWeights.reduce((acc, next, idx) => actions[idx].inRange ? acc + next : acc,0);
-        return [combo, Math.round(inRangeTotal/totalWeights * 100)]
+        return [combo, (inRangeTotal/totalWeights * 100).toFixed(2)]
       });
       if (!weightedCombosInRange.length) setRangeString(undefined)
       else setRangeString(combosToRangeString(weightedCombosInRange, format));

@@ -11,7 +11,7 @@ export const validateCombos = ajv.getSchema("combos");
 export const validate = ajv.compile(schema);
 
 export const rangeStringFormatters = {
-  gtoplus: {label: "GTO+", getWeightedRangeString: (rangeString, weight) => `[${weight}]${rangeString}[/${weight}]`}
+  gtoplus: {label: "GTO+", getWeightedRangeString: (rangeString, weight) => `[${weight.toFixed(1)}]${rangeString}[/${weight.toFixed(1)}]`}
 }
 
 export const combosToRangeString = (weightedCombos, format) => {
@@ -24,8 +24,9 @@ export const combosToRangeString = (weightedCombos, format) => {
   }, {});
   return Object
     .entries(weightCombosMap)
-    .map(([weight, combos]) => parseInt(weight) === 100 ? reverse(combos) : formatter(reverse(combos), weight))
-    .join(",");
+    .map(([weight, combos]) => parseInt(weight) === 100 ? reverse(combos) : formatter(reverse(combos), parseFloat(weight)))
+    .join(",")
+    .replaceAll(" ", "");
 }
 
 export const actionComboStyler = (combos, actions) => combo => {
