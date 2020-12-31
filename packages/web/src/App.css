@@ -129,3 +129,24 @@
     padding: 0 50px;
   }
 }
+
+.intro-slide {
+  padding-top: 25px;
+  max-width: 100%;
+}
+
+.intro-slide h3 {
+  text-align: center;
+}
+
+.ant-carousel ul.slick-dots.carousel-dots {
+  height: 5px;
+}
+
+.ant-carousel ul.slick-dots.carousel-dots li button {
+  background: #868686;
+}
+
+.ant-carousel ul.slick-dots.carousel-dots li.slick-active button {
+  background: #000;
+}
