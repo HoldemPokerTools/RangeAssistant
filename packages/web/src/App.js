@@ -129,7 +129,7 @@ const Intro = ({ visible, onClose }) => {
           <Paragraph>
             Use the <PlusCircleOutlined/> Add Range button to get started adding new ranges to your database.
             You can then import a range by dragging and dropping a previously exported <Text code> .range</Text> file or
-            create a new range using one of templates. You can also duplicate existing ranges using the <CopyOutlined/> button.
+            create a new range using from a template. You can also duplicate existing ranges using the <CopyOutlined/> button.
           </Paragraph>
           <CarouselControls showPrev={true} showNext={true} showDone={false}/>
         </div>
