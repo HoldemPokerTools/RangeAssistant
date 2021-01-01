@@ -200,7 +200,7 @@ const RangeTile = ({ range, frequencyMode }) => {
       </Tooltip>
       <div className="spacer"/>
       <Popconfirm
-        title="Are you sure to delete this range?"
+        title="Are you sure you want to delete this range?"
         onConfirm={() => deleteRange(_id)}
         okText="Yes"
         cancelText="No"
