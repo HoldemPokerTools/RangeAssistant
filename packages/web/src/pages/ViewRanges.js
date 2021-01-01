@@ -12,9 +12,12 @@ import {
   Switch,
   Select,
   Tooltip,
-  InputNumber, Divider
+  InputNumber,
+  Divider,
+  Popconfirm,
+  Popover
 } from "antd";
-import { EditOutlined, DeleteOutlined, PlusCircleOutlined, DownloadOutlined, FileAddFilled, CopyOutlined, RedoOutlined } from "@ant-design/icons"
+import { EditOutlined, DeleteOutlined, PlusCircleOutlined, DownloadOutlined, FileAddFilled, CopyOutlined, RedoOutlined, InfoCircleOutlined } from "@ant-design/icons"
 import {
   Redirect,
   useHistory
@@ -177,6 +180,9 @@ const RangeTile = ({ range, frequencyMode }) => {
 
   return (<div>
     <Text strong>{title} </Text>
+    <Popover placement="bottom" title="Actions" content={<ActionsList actions={range.actions}/>} trigger="click">
+      <InfoCircleOutlined />
+    </Popover>
     <HandMatrix showText={true} comboStyle={combo => ({
       ...styler(combo),
       fontSize: "0.6rem"
@@ -193,15 +199,33 @@ const RangeTile = ({ range, frequencyMode }) => {
         <Button onClick={() => downloadRange(range)} icon={<DownloadOutlined />} size="small"/>
       </Tooltip>
       <div className="spacer"/>
-      <Tooltip title="Delete Range" placement="bottomRight">
-        <Button type="primary" onClick={() => deleteRange(_id)} icon={<DeleteOutlined />} size="small"/>
-      </Tooltip>
+      <Popconfirm
+        title="Are you sure to delete this range?"
+        onConfirm={() => deleteRange(_id)}
+        okText="Yes"
+        cancelText="No"
+      >
+        <Button type="primary" icon={<DeleteOutlined />} size="small"/>
+      </Popconfirm>
     </div>
     <div className="tag-container">
       {tags.map(tag => <div className="tag" key={tag}>{tag}</div>)}
     </div>
   </div>)
 }
+
+const ActionsList = ({actions}) => <>
+  {actions.map(action => <div style={{marginBottom: 5, display: "flex"}}>
+    <span style={{
+      border: "1px solid lightgrey",
+      marginRight: 10,
+      height: 20,
+      width: 20,
+      display: "block",
+      backgroundColor: action.color,
+    }}/> <Text>{action.name}</Text>
+  </div>)}
+</>
 
 const NewRangeFormModal = ({ visible, onSubmit, onImport, onCancel }) => {
   const [form] = Form.useForm();

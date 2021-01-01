@@ -292,13 +292,13 @@ function BuildRange() {
                   </Title>
                   {range.actions.map((action, i) => (
                     <div key={i} style={{ display: "flex", alignItems: "center" }}>
-                  <span style={{
-                    border: "1px solid lightgrey",
-                    marginRight: 10,
-                    height: 20,
-                    width: 20,
-                    backgroundColor: action.color,
-                  }}/>
+                      <span style={{
+                        border: "1px solid lightgrey",
+                        marginRight: 10,
+                        height: 20,
+                        width: 20,
+                        backgroundColor: action.color,
+                      }}/>
                       <InputNumber
                         value={range.combos[selected] ? range.combos[selected][i] : 0}
                         min={0}
