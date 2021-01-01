@@ -20,6 +20,6 @@
   ],
   "name": "Hold'em Poker Tools Range Assistant",
   "short_name": "Range Assistant",
-  "start_url": ".",
+  "start_url": "/",
   "theme_color": "#bd2829"
 }
