@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1'/>
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Hold'em Poker Tools Range Assistant. Free desktop app and website to build complex ranges and view them in-play."
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <title>Hold'em Poker Tools: Range Assistant</title>
+    <script type="text/javascript">
+      let pathSegmentsToKeep = 0;
+
+      let l = window.location;
+      l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+          l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+      );
+
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
