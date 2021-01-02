@@ -11,7 +11,8 @@ export const validateCombos = ajv.getSchema("combos");
 export const validate = ajv.compile(schema);
 
 export const rangeStringFormatters = {
-  gtoplus: {label: "GTO+", getWeightedRangeString: (rangeString, weight) => `[${weight.toFixed(1)}]${rangeString}[/${weight.toFixed(1)}]`}
+  gtoplus: {label: "GTO+", getWeightedRangeString: (rangeString, weight) => weight === 100 ? rangeString : `[${weight.toFixed(1)}]${rangeString}[/${weight.toFixed(1)}]`},
+  pio: {label: "PioSolver", getWeightedRangeString: (rangeString, weight) => `${rangeString}:${(weight/100).toFixed(2)}`}
 }
 
 export const combosToRangeString = (weightedCombos, format) => {
@@ -24,7 +25,7 @@ export const combosToRangeString = (weightedCombos, format) => {
   }, {});
   return Object
     .entries(weightCombosMap)
-    .map(([weight, combos]) => parseInt(weight) === 100 ? reverse(combos) : formatter(reverse(combos), parseFloat(weight)))
+    .map(([weight, combos]) => formatter(combos, parseFloat(weight)))
     .join(",")
     .replaceAll(" ", "");
 }
@@ -106,7 +107,7 @@ export const defaultTags = [
   "vs EP", "vs MP", "vs UTG", "vs UTG+1", "vs UTG+2", "vs LJ", "vs HJ", "vs CO", "vs BTN", "vs SB", "vs BB",
   "micro", "low stakes", "medium stakes", "high stakes",
   "100BB", "200BB", "75BB", "50BB", "30BB",
-  "RFI", "vs limp", "vs open", "vs 3bet", "vs 4bet", "vs 5bet",
+  "RFI", "Open", "vs limp", "vs open", "vs 3bet", "vs 4bet", "vs 5bet",
   "vs small bet", "vs medium bet", "vs big bet",
   "6max", "full ring", "heads up",
   "GTO", "exploitative", "vs nit", "vs TAG", "vs LAG", "vs fish", "vs whale",

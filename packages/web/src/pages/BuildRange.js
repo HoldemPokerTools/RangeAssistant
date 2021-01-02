@@ -11,7 +11,6 @@ import {
   Select,
   Switch,
   Tooltip,
-  Radio,
 } from "antd";
 import Spin from "../components/Spin";
 import { DeleteFilled, CopyOutlined, FormatPainterOutlined, TableOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
@@ -31,7 +30,7 @@ function BuildRange() {
   const [selected, setSelected] = useState(undefined);
   const [copying, setCopying] = useState(false);
   const [clipboard, setClipboard] = useState(undefined);
-  const [rangeString, setRangeString] = useState(undefined);
+  const [weightedCombosInRange, setWeightedCombosInRange] = useState(undefined);
   const [format, setFormat] = useState("gtoplus");
   const { rangeId } = useParams();
 
@@ -58,15 +57,13 @@ function BuildRange() {
   useEffect(() => {
     if (range) {
       const { combos, actions } = range;
-      const weightedCombosInRange = Object.entries(combos).filter(([_, actionWeights]) => {
+      setWeightedCombosInRange(Object.entries(combos).filter(([_, actionWeights]) => {
         return actionWeights.some((actionWeight, idx) => actions[idx].inRange && actionWeight > 0);
       }).map(([combo, actionWeights]) => {
         const totalWeights = actionWeights.reduce((acc, next) => acc + next,0);
         const inRangeTotal = actionWeights.reduce((acc, next, idx) => actions[idx].inRange ? acc + next : acc,0);
         return [combo, (inRangeTotal/totalWeights * 100).toFixed(2)]
-      });
-      if (!weightedCombosInRange.length) setRangeString(undefined)
-      else setRangeString(combosToRangeString(weightedCombosInRange, format));
+      }));
     }
   }, [range, format])
 
@@ -316,20 +313,20 @@ function BuildRange() {
               )}
               <div>
                 <Title level={4}>
-                  Range String
+                  Copy Range String
                 </Title>
                 {
-                  rangeString ? <Space direction="vertical">
-                      <Space>
-                        <Text strong>Format</Text>
-                        <Radio.Group onChange={setFormat} options={Object
-                          .keys(rangeStringFormatters)
-                          .map(i => ({value: i, label: rangeStringFormatters[i].label}))
-                        } value={format}/>
+                  weightedCombosInRange.length
+                    ? <Space>
+                        {
+                          Object.keys(rangeStringFormatters).map(i =>
+                            <Text  style={{overflowWrap: "anywhere"}} copyable={{text: combosToRangeString(weightedCombosInRange, i)}}>
+                            {rangeStringFormatters[i].label}
+                            </Text>
+                          )
+                        }
                       </Space>
-                      <Text copyable>{rangeString}</Text>
-                    </Space> :
-                    <Text>
+                    : <Text>
                       <ExclamationCircleOutlined /> To generate a range string, ensure at least one combo has an action
                       weight greater than 0 for at least one action which is marked as <strong>included in range</strong>
                     </Text>
@@ -339,7 +336,6 @@ function BuildRange() {
           </Col>
         </Row>
       </Space>
-
     </div>
   );
 }
