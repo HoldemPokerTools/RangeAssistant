@@ -31,7 +31,6 @@ function BuildRange() {
   const [copying, setCopying] = useState(false);
   const [clipboard, setClipboard] = useState(undefined);
   const [weightedCombosInRange, setWeightedCombosInRange] = useState(undefined);
-  const [format, setFormat] = useState("gtoplus");
   const { rangeId } = useParams();
 
   useEffect(() => {
@@ -65,7 +64,7 @@ function BuildRange() {
         return [combo, (inRangeTotal/totalWeights * 100).toFixed(2)]
       }));
     }
-  }, [range, format])
+  }, [range])
 
   const handleComboActionChange = (combo, actionIdx, newValue) => {
     const { combos, actions } = range;
