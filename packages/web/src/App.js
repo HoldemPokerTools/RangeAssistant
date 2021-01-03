@@ -24,6 +24,7 @@ import importImg from "./assets/import.jpg";
 import weightsImg from "./assets/weights.jpg";
 import frequency from "./assets/frequency.jpg";
 import download from "./assets/download.jpg";
+import logo from "./assets/logo.png";
 import "./App.css";
 const { Title, Paragraph, Text } = Typography;
 
@@ -178,7 +179,7 @@ const SiteHeader = ({ onOpenHelp }) => (
     <img
       alt="logo"
       height="60"
-      src="./logo512.png"
+      src={logo}
     />
     <Link to="/" className="logo-text">
       <span style={{ color: "#000"}}>Hold'em Poker Tools</span>
