@@ -1,8 +1,8 @@
-import {reverse} from "prange";
 import {getRandomInt} from "./numbers";
 import fileDownload from "js-file-download";
 import Ajv from "ajv";
 import schema from "../data/range.schema.json";
+import { shortenPairs, shortenNonPairs } from "./shorten";
 
 const ajv = new Ajv({strict: false});
 ajv.addSchema(schema);
@@ -12,7 +12,7 @@ export const validate = ajv.compile(schema);
 
 export const rangeStringFormatters = {
   gtoplus: {label: "GTO+", getWeightedRangeString: (rangeString, weight) => weight === 100 ? rangeString : `[${weight.toFixed(1)}]${rangeString}[/${weight.toFixed(1)}]`},
-  pio: {label: "PioSolver", getWeightedRangeString: (rangeString, weight) => `${rangeString}:${(weight/100).toFixed(2)}`}
+  pio: {label: "PioSolver", getWeightedRangeString: (rangeString, weight) => rangeString.split(",").map(i => `${i}:${(weight/100).toFixed(2)}`).join(",")}
 }
 
 export const combosToRangeString = (weightedCombos, format) => {
@@ -25,7 +25,7 @@ export const combosToRangeString = (weightedCombos, format) => {
   }, {});
   return Object
     .entries(weightCombosMap)
-    .map(([weight, combos]) => formatter(combos, parseFloat(weight)))
+    .map(([weight, combos]) => formatter(shortenRange(combos), parseFloat(weight)))
     .join(",")
     .replaceAll(" ", "");
 }
@@ -112,3 +112,43 @@ export const defaultTags = [
   "6max", "full ring", "heads up",
   "GTO", "exploitative", "vs nit", "vs TAG", "vs LAG", "vs fish", "vs whale",
 ]
+
+const sortOut = (combos) => {
+  const offsuit = new Set();
+  const suited = new Set();
+  const pairs = new Set();
+  combos.forEach(([rank1, rank2, suit]) => {
+    const combo = rank1 + rank2;
+    if (rank1 === rank2) pairs.add(combo)
+    else if (!suit || suit === "o") offsuit.add(combo)
+    else if (suit === "s") suited.add(combo)
+    else throw new Error(`Invalid suit ${suit} of ${combo}!`)
+  });
+
+  return { offsuit, suited, pairs }
+}
+
+const unsuitNonPairs = (os, su) => {
+  const osArray = Array.from(os);
+  const suArray = Array.from(su);
+  const intersection = new Set();
+  for(const combo of osArray) if(su.has(combo.replace(/o/g, 's'))) intersection.add(combo.replace(/o/g, ''));
+
+  const intersectionFilter = suffix => i => !intersection.has(i.replace(new RegExp(suffix,"g"), ''));
+
+  return Array.from(intersection)
+    .concat(
+      osArray.filter(intersectionFilter("o")),
+      suArray.filter(intersectionFilter("s")),
+    );
+}
+
+export const shortenRange = (combos) => {
+  const { offsuit, suited, pairs } = sortOut(combos);
+  const ps = shortenPairs(pairs);
+  const os = shortenNonPairs(offsuit, 'o');
+  const su = shortenNonPairs(suited, 's');
+  const nonpairs = unsuitNonPairs(new Set(os), new Set(su));
+
+  return ps.concat(nonpairs).join(', ');
+}
