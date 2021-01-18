@@ -51,7 +51,7 @@
     ]
   },
   "dependencies": {
-    "@holdem-poker-tools/hand-matrix": "^0.2.1",
+    "@holdem-poker-tools/hand-matrix": "^0.2.3",
     "ajv": "^7.0.3",
     "antd": "^4.10.0",
     "electron-is-dev": "^1.2.0",
