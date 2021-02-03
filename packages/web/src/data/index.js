@@ -31,6 +31,7 @@ export const registerListener = (cb) => {
 };
 
 export const deleteAllRanges = async () => {
-  const allDocs = await db.allDocs();
-  allDocs.rows.forEach(async (row) => db.remove(row.id, row.value.rev));
+  return db.allDocs({include_docs: true}).then(allDocs => {
+    return allDocs.rows.map(row => ({_id: row.id, _rev: row.doc._rev, _deleted: true}));
+  }).then(db.bulkDocs);
 };

@@ -25,7 +25,7 @@ import {
 import { HandMatrix } from "@holdem-poker-tools/hand-matrix";
 import Spin from "../components/Spin";
 import Dropzone from "../components/Dropzone";
-import { createRange, deleteRange, getRanges, registerListener } from "../data";
+import { createRange, deleteAllRanges, deleteRange, getRanges, registerListener } from "../data";
 import colors from "../utils/colors";
 import {actionComboStyler, frequencyComboStyler, downloadRange, readFile, validate} from "../utils/range";
 import { getRandomInt } from "../utils/numbers";
@@ -143,6 +143,15 @@ const ViewRanges = () => {
               {[...new Set((ranges || []).map(range => range.tags).flat())].sort().map(tag => <Option key={tag} value={tag}>{tag}</Option>)}
             </Select>
             <Button icon={<PlusCircleOutlined/>} onClick={() => setVisible(true)}>Add Range</Button>
+            <Popconfirm
+              title="Are you sure you want to delete all ranges?"
+              onConfirm={deleteAllRanges}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button variant="primary" icon={<DeleteOutlined/>}>Delete All Ranges</Button>
+            </Popconfirm>
+            
           </Space>
         </div>
         <Space>
