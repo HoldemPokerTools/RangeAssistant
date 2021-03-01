@@ -25,7 +25,7 @@
     "react-dropzone": "^11.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "ua-parser-js": "^0.7.23"
+    "ua-parser-js": "^0.7.24"
   },
   "description": "Hold'em Poker Tools Range Assistant web app",
   "devDependencies": {
