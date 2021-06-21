@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@holdem-poker-tools/hand-matrix": "0.2.3",
-    "ajv": "^7.0.3",
+    "ajv": "^8.6.0",
     "antd": "^4.16.1",
     "js-file-download": "^0.4.12",
     "nanoid": "^3.1.20",
@@ -29,7 +29,7 @@
   },
   "description": "Hold'em Poker Tools Range Assistant web app",
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^13.1.1",
     "cross-env": "^7.0.3",
