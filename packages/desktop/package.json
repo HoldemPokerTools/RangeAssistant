@@ -59,7 +59,7 @@
     "pouchdb": "^7.2.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.2",
-    "react-dropzone": "^11.2.4",
+    "react-dropzone": "^11.3.4",
     "react-scripts": "4.0.3"
   },
   "description": "Hold'em Poker Tools Range Assistant desktop app",
