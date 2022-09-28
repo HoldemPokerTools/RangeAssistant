@@ -67,7 +67,7 @@ function App() {
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL} >
         <SiteHeader onOpenHelp={() => setIntroVisible(true)}/>
         <Content className="content">
           <div className="site-layout-content gutter">

@@ -38,13 +38,13 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "/RangeAssistant/",
   "license": "MIT",
   "main": "src/index.js",
   "name": "@holdem-poker-tools/range-assistant-web",
   "private": true,
   "scripts": {
     "build": "react-scripts build",
+    "build:gh": "PUBLIC_URL=/RangeAssistant/ react-scripts build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
