@@ -38,6 +38,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "homepage": "/RangeAssistant/",
   "license": "MIT",
   "main": "src/index.js",
   "name": "@holdem-poker-tools/range-assistant-web",
